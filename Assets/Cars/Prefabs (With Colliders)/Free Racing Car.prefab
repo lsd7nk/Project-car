@@ -49,8 +49,8 @@ Light:
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: 3
+    m_Type: 1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -82,7 +82,7 @@ Light:
     serializedVersion: 2
     m_Bits: 575
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -142,8 +142,8 @@ Light:
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: 3
+    m_Type: 1
+    m_Resolution: 0
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -175,7 +175,7 @@ Light:
     serializedVersion: 2
     m_Bits: 575
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -201,7 +201,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1545830131
 Transform:
   m_ObjectHideFlags: 0
@@ -514,6 +514,7 @@ GameObject:
   - component: {fileID: 8199253057995110433}
   - component: {fileID: 187330664660230373}
   - component: {fileID: 1016151393840242557}
+  - component: {fileID: 1840775793}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -596,8 +597,21 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.85, y: 0.93, z: 4.34}
-  m_Center: {x: 0, y: 0.85, z: -0.018977284}
+  m_Size: {x: 1.9, y: 0.76, z: 4.73}
+  m_Center: {x: 0.0276, y: 0.6, z: -0.019}
+--- !u!65 &1840775793
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018720586628133803}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.9, y: 0.407, z: 2.578}
+  m_Center: {x: -0.00345, y: 1.198, z: -0.437}
 --- !u!1 &3220844048195430644
 GameObject:
   m_ObjectHideFlags: 0
@@ -723,9 +737,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec853b6c248cbe49aa309c6c99378ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _motorForce: 1000
+  _motorForce: 1200
   _breakForce: 3000
   _maxSteerAngle: 30
+  _wheelRotationSpeed: 8
   _frontWheelsColliders:
   - {fileID: 2716459193614891142}
   - {fileID: 4795950753765878369}

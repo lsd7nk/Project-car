@@ -14,12 +14,12 @@ public class InteractorsBase
 
     public void Initialize()
     {
-        foreach(Interactor interactor in _interactorsDict.Values)
+        CreateAllInteractors();
+
+        foreach (Interactor interactor in _interactorsDict.Values)
         {
             interactor.Initialize();
         }
-
-        CreateAllInteractors();
     }
 
     public T GetInteractor<T>() where T : Interactor => (T) _interactorsDict[typeof(T)];
@@ -27,6 +27,7 @@ public class InteractorsBase
     private void CreateAllInteractors()
     {
         CreateInteractor<BankInteractor>();
+        CreateInteractor<LapsInteractor>();
     }
 
     private void CreateInteractor<T>() where T : Interactor, new()

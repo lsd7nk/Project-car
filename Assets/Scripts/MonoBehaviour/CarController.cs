@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
@@ -9,13 +7,12 @@ public class CarController : MonoBehaviour
 
     private float _horizontalInput;
     private float _verticalInput;
-    private float _currentSteerAngle;
-    private float _currentBreakForce;
     private bool _isBreaking;
 
     [SerializeField] private float _motorForce;
     [SerializeField] private float _breakForce;
     [SerializeField] private float _maxSteerAngle;
+    [SerializeField][Range(5, 10)] private float _wheelRotationSpeed = 8f;
 
     [SerializeField] private WheelCollider[] _frontWheelsColliders;
     [SerializeField] private WheelCollider[] _rearWheelsColliders;
@@ -51,7 +48,15 @@ public class CarController : MonoBehaviour
 
         _frontWheelsColliders[0].motorTorque = _verticalInput * _motorForce;
         _frontWheelsColliders[1].motorTorque = _verticalInput * _motorForce;
-        currentBreakForce = _isBreaking ? _breakForce : 0f;
+
+        if (_verticalInput != 0)
+        {
+            currentBreakForce = _isBreaking ? _breakForce : 0f;
+        }
+        else
+        {
+            currentBreakForce = _breakForce;
+        }
 
         ApplyBreaking(currentBreakForce);       
     }
@@ -67,9 +72,9 @@ public class CarController : MonoBehaviour
 
     private void HandleSteering()
     {
-        _currentSteerAngle = _maxSteerAngle * _horizontalInput;
+        float _currentSteerAngle = _maxSteerAngle * _horizontalInput;
 
-        foreach(WheelCollider frontWheelCollider in _frontWheelsColliders)
+        foreach (WheelCollider frontWheelCollider in _frontWheelsColliders)
         {
             frontWheelCollider.steerAngle = _currentSteerAngle;
         }
@@ -90,7 +95,7 @@ public class CarController : MonoBehaviour
         Quaternion rotation;
 
         wheelCollider.GetWorldPose(out position, out rotation);
-        wheelTransform.rotation = rotation;
+        wheelTransform.rotation = Quaternion.Lerp(wheelTransform.rotation, rotation, _wheelRotationSpeed * Time.fixedDeltaTime);
         wheelTransform.position = position;
     }
 }

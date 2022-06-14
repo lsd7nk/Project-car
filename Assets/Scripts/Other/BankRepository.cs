@@ -3,26 +3,23 @@ using UnityEngine;
 public class BankRepository : Repository
 {
     private const string _key = "Coins";
-    private int _coinsAmount;
 
-    public static int CoinsAmount { get; private set; }
+    public int CoinsAmount { get; private set; }
 
     public override void Initialize()
     {
-        _coinsAmount = (PlayerPrefs.HasKey(_key)) ? PlayerPrefs.GetInt(_key) : 0;
-        CoinsAmount = _coinsAmount;
+        CoinsAmount = (PlayerPrefs.HasKey(_key)) ? PlayerPrefs.GetInt(_key) : 0;
     }
 
     public void SetCoins(int value)
     {
-        _coinsAmount = value;
-        CoinsAmount = _coinsAmount;
+        CoinsAmount = value;
 
-        Save(_key, _coinsAmount);
+        Save(_key, CoinsAmount);
     }
 
     protected override void Save(string key, int value)
     {
-        PlayerPrefs.SetInt(_key, _coinsAmount);
+        PlayerPrefs.SetInt(_key, CoinsAmount);
     }
 }

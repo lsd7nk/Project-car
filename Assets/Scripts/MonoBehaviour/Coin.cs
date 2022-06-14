@@ -1,22 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Coin : MonoBehaviour
 {
     [SerializeField] private LayerMask _interactLayers;
-    private BoxCollider _collider;
-
-    private void Start()
-    {
-        _collider = GetComponent<BoxCollider>();
-    }
+    [HideInInspector] public UnityEvent OnMoneyCollection;
 
     private void OnTriggerEnter(Collider collider)
     {
         if ((_interactLayers.value & (1 << collider.gameObject.layer)) != 0)
         {
-            
+            CollectMoney();
         }
+    }
+
+    private void CollectMoney()
+    {
+        OnMoneyCollection?.Invoke();
+        gameObject.SetActive(false);
     }
 }
