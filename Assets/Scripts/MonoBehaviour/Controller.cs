@@ -4,6 +4,6 @@ public class Controller : MonoBehaviour
 {
     protected T Initialize<T>() where T : Interactor
     {
-        return GetComponent<GameController>().InteractorsBase.GetInteractor<T>();
+        return GameController.Instance.InteractorsBase.GetInteractor<T>();
     }
 }

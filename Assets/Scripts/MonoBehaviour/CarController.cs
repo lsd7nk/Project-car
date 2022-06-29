@@ -61,7 +61,7 @@ public class CarController : MonoBehaviour
         ApplyBreaking(currentBreakForce);       
     }
 
-    private void ApplyBreaking(float currentBreakForce)
+    public void ApplyBreaking(float currentBreakForce)
     {
         for (int i = 0; i < 2; i++)
         {

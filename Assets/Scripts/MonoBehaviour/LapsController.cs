@@ -9,7 +9,7 @@ public class LapsController : Controller
 
     public void Initialize()
     {
-        _lapsInteractor = base.Initialize<LapsInteractor>();
+        InitializeLapsInteractor();
         _lapsTextUpdater.Initialize();
         _checkPointsCompleted = 0;
 
@@ -17,6 +17,20 @@ public class LapsController : Controller
         {
             point.OnCheckPointComplete.AddListener(HandleCurrentCheckPoint);
         }
+    }
+
+    private void InitializeLapsInteractor()
+    {
+        _lapsInteractor = base.Initialize<LapsInteractor>();
+
+        _lapsInteractor.OnChangeLapsAmountEvent += (int lapsAmount) =>
+        {
+            _lapsTextUpdater?.SetText("Laps completed: " + lapsAmount.ToString());
+        };
+        _lapsInteractor.OnResetLapsAmountEvent += (int lapsAmount) =>
+        {
+            _checkPointsCompleted = 1;
+        };
     }
 
     private void HandleCurrentCheckPoint(CheckPoint point)
@@ -39,8 +53,6 @@ public class LapsController : Controller
     private void IncreaseLapsAmount()
     {
         _checkPointsCompleted = 1;
-
         _lapsInteractor?.IncreaseLapsAmount();
-        _lapsTextUpdater?.SetText("Laps completed: " + _lapsInteractor.LapsCompletedAmount.ToString());
     }
 }
