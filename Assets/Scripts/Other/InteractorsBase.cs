@@ -28,6 +28,7 @@ public class InteractorsBase
     {
         CreateInteractor<BankInteractor>();
         CreateInteractor<LapsInteractor>();
+        CreateInteractor<FallsInteractor>();
     }
 
     private void CreateInteractor<T>() where T : Interactor, new()

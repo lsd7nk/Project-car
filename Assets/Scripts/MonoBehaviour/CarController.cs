@@ -55,7 +55,7 @@ public class CarController : MonoBehaviour
         }
         else
         {
-            currentBreakForce = _breakForce;
+            currentBreakForce = _breakForce / 2;
         }
 
         ApplyBreaking(currentBreakForce);       

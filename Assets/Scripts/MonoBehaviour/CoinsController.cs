@@ -35,6 +35,6 @@ public class CoinsController : Controller
     private void AdditionCoin()
     {
         _bankInteractor?.AdditionCoins(1);
-        _coinsTextUpdater?.SetText(_bankInteractor.CoinsAmount.ToString() + "$");
+        _coinsTextUpdater?.SetText($"{_bankInteractor.CoinsAmount}$");
     }
 }

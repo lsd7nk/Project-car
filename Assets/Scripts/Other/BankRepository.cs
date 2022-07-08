@@ -14,12 +14,6 @@ public class BankRepository : Repository
     public void SetCoins(int value)
     {
         CoinsAmount = value;
-
         Save(_key, CoinsAmount);
-    }
-
-    protected override void Save(string key, int value)
-    {
-        PlayerPrefs.SetInt(_key, CoinsAmount);
     }
 }

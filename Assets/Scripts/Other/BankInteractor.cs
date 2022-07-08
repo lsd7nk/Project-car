@@ -8,8 +8,7 @@ public class BankInteractor : Interactor
 
     public override void Initialize()
     {
-        _repository = new BankRepository();
-        _repository.Initialize();
+        _repository = RepositoryInitialize<BankRepository>();
     }
 
     public void AdditionCoins(int value)

@@ -1,27 +1,29 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
-public class FallHandler : Controller
+public class FallsHandler : MonoBehaviour
 {
+    [HideInInspector] public event Action OnFallHandleEvent;
     [SerializeField] private LayerMask _interactLayers;
     [SerializeField] private Animator _faderAnimator;
     [SerializeField] private Transform _startTransform;
-    private LapsInteractor _lapsInteractor;
     private CarController _carController;
     private Transform _carTransform;
     private Rigidbody _carRigidbody;
     private const string FadeIn = "FadeIn";
-
-    public void Initialize()
-    {
-        _lapsInteractor = base.Initialize<LapsInteractor>();
-    }
+    private static bool _isFirstEnter = false;
 
     private void OnTriggerEnter(Collider other)
     {
         if ((_interactLayers.value & (1 << other.gameObject.layer)) != 0)
         {
-            StartCoroutine(HandleFall(other.transform.parent.gameObject));
+            _isFirstEnter = !_isFirstEnter;
+
+            if (_isFirstEnter)
+            {
+                StartCoroutine(HandleFall(other.transform.parent.gameObject));
+            }
         }
     }
 
@@ -32,6 +34,8 @@ public class FallHandler : Controller
         GetBackOnTheRoad(obj);
         yield return new WaitForSeconds(1f);
         FadeOutScreen();
+        yield return new WaitForSeconds(0.1f);
+        OnFallHandleEvent?.Invoke();
         yield break;
     }
 
@@ -51,15 +55,13 @@ public class FallHandler : Controller
                 _carRigidbody.velocity = Vector3.zero;
             }
         }
-
-        _lapsInteractor?.ResetLapsAmount();
     }
 
     private bool Initialize(GameObject obj)
     {
-        if (_carController == null) { _carController = obj.GetComponent<CarController>(); }
-        if (_carRigidbody == null) { _carRigidbody = obj.GetComponent<Rigidbody>(); }
-        if (_carTransform == null) { _carTransform = obj.GetComponent<Transform>(); }
+        _carController ??= obj.GetComponent<CarController>();
+        _carRigidbody ??= obj.GetComponent<Rigidbody>();
+        _carTransform ??= obj.GetComponent<Transform>();
 
         return _carController & _carRigidbody & _carRigidbody;
     }

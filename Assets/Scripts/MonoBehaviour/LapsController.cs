@@ -1,17 +1,21 @@
+using System;
 using UnityEngine;
 
 public class LapsController : Controller
 {
     [SerializeField] private DisplayTextUpdater _lapsTextUpdater;
     [SerializeField] private CheckPoint[] _checkPoints;
+    private LapTimer _lapTimer;
     private LapsInteractor _lapsInteractor;
     private int _checkPointsCompleted;
 
     public void Initialize()
     {
+        _lapTimer = GetComponent<LapTimer>();
+
         InitializeLapsInteractor();
         _lapsTextUpdater.Initialize();
-        _checkPointsCompleted = 0;
+        _lapTimer.Initialize();
 
         foreach (CheckPoint point in _checkPoints)
         {
@@ -25,7 +29,7 @@ public class LapsController : Controller
 
         _lapsInteractor.OnChangeLapsAmountEvent += (int lapsAmount) =>
         {
-            _lapsTextUpdater?.SetText("Laps completed: " + lapsAmount.ToString());
+            _lapsTextUpdater?.SetText($"Laps completed: {lapsAmount}");
         };
         _lapsInteractor.OnResetLapsAmountEvent += (int lapsAmount) =>
         {
@@ -38,6 +42,7 @@ public class LapsController : Controller
         if (point.Index == 0 && _checkPointsCompleted == _checkPoints.Length)
         {
             IncreaseLapsAmount();
+            _lapTimer.ResetTime();
         }
         else
         {
