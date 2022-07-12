@@ -5,11 +5,12 @@ OcclusionCullingSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_OcclusionBakeSettings:
-    smallestOccluder: 5
-    smallestHole: 0.25
+    smallestOccluder: 2
+    smallestHole: 0.15
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 9fc0d4010bbf28b4594072e72b8655ab
+  m_OcclusionCullingData: {fileID: 36300000, guid: 69f1819ec6e6ea542981a0e2e67eb82d,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -38,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.020792596, g: 0.009204615, b: 0.03393598, a: 1}
+  m_IndirectSpecularColor: {r: 0.020790225, g: 0.0091974735, b: 0.033922564, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,10 +242,20 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 600
       objectReference: {fileID: 0}
+    - target: {fileID: 7761103670164231654, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_red_block_1&5m_free_obs
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8935095989379886729, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
@@ -335,7 +346,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 18
   m_IsActive: 1
 --- !u!4 &252267536
 Transform:
@@ -386,10 +397,8 @@ GameObject:
   m_Component:
   - component: {fileID: 497665357}
   - component: {fileID: 497665358}
-  - component: {fileID: 497665359}
   - component: {fileID: 497665360}
   - component: {fileID: 497665363}
-  - component: {fileID: 497665362}
   - component: {fileID: 497665361}
   m_Layer: 0
   m_Name: GameController
@@ -425,22 +434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraFollow: {fileID: 963194230}
---- !u!114 &497665359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497665356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c12a62cfa641ae469b849a7e5e30e6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _coinsTextUpdater: {fileID: 609477528}
-  _coinPrefab: {fileID: 706235599256593701, guid: 4314c2f005206f3479fd203a948600da,
-    type: 3}
-  _coinsPoints: []
 --- !u!114 &497665360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,6 +452,7 @@ MonoBehaviour:
   - {fileID: 881794620}
   - {fileID: 2106628333}
   - {fileID: 1579697721}
+  _lapTimer: {fileID: 1000084190}
 --- !u!114 &497665361
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,22 +462,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 497665356}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b48f92019ffdf345acd1303c8c768f2, type: 3}
+  m_Script: {fileID: 11500000, guid: d2c39fdf8f822e647a80041feedc7081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &497665362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 497665356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eba6980f775d8ad40a907aa0e29b51a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _lapTimerUpdater: {fileID: 1000084187}
+  _fpsText: {fileID: 609477528}
 --- !u!114 &497665363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,6 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 1519110984}
   _handler: {fileID: 1970728544}
+  _lapTimer: {fileID: 1000084190}
 --- !u!1 &502444838
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +526,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
@@ -599,6 +587,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1001 &514359500
@@ -612,10 +605,20 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.0004
       objectReference: {fileID: 0}
+    - target: {fileID: 7761103670164231654, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_red_block_1&5m_free_obs (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8935095989379886729, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
@@ -685,10 +688,20 @@ PrefabInstance:
       propertyPath: m_Mass
       value: 600
       objectReference: {fileID: 0}
+    - target: {fileID: 7761103670164231654, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_red_block_1&5m_free_obs (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8935095989379886729, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
@@ -856,7 +869,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &613876053
 MonoBehaviour:
@@ -954,10 +967,20 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: -0.0004
       objectReference: {fileID: 0}
+    - target: {fileID: 7761103670164231654, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_red_block_1&5m_free_obs (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121123564845872179, guid: f5d3c5e0f5f32c141911c08deee9e94d,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8935095989379886729, guid: f5d3c5e0f5f32c141911c08deee9e94d,
         type: 3}
@@ -1274,6 +1297,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1367353732}
     m_Modifications:
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8483781631078631208, guid: 87e0acbd6ddf7814097e377d5a5c716d,
         type: 3}
       propertyPath: m_Name
@@ -1408,7 +1441,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_line_type_01_15m_free_obs (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2927259199662858590, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 652461854, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
+    - {fileID: 714872874, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
 --- !u!4 &813040387 stripped
 Transform:
@@ -1580,6 +1640,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Track_line_type_01_start_finish_15m_free_obs
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049907621329533821, guid: 419b5557461398443a4b99d9496015fc,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410463666442459816, guid: 419b5557461398443a4b99d9496015fc,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410463666442459816, guid: 419b5557461398443a4b99d9496015fc,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410463666442459816, guid: 419b5557461398443a4b99d9496015fc,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410463666442459816, guid: 419b5557461398443a4b99d9496015fc,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 419b5557461398443a4b99d9496015fc, type: 3}
@@ -1795,6 +1880,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
       propertyPath: m_RootOrder
@@ -1850,6 +1940,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1001 &946431399
@@ -1867,6 +1962,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
@@ -1923,6 +2023,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1 &963194225
@@ -1937,7 +2042,6 @@ GameObject:
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
   - component: {fileID: 963194230}
-  - component: {fileID: 963194229}
   - component: {fileID: 963194231}
   m_Layer: 0
   m_Name: Main Camera
@@ -1953,7 +2057,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &963194227
 Camera:
   m_ObjectHideFlags: 0
@@ -2011,39 +2115,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 41, y: 46, z: 0}
---- !u!114 &963194229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
-  m_Antialiasing: 2
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2190,6 +2261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
       propertyPath: m_RootOrder
@@ -2245,6 +2321,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1001 &997587016
@@ -2314,6 +2395,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_Corner_90d_type_01_15x15m_free_obs (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5539833070294148113, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd0831f60632baf4492b92858d493b29, type: 3}
 --- !u!4 &997587017 stripped
@@ -2334,6 +2440,8 @@ GameObject:
   - component: {fileID: 1000084189}
   - component: {fileID: 1000084188}
   - component: {fileID: 1000084187}
+  - component: {fileID: 1000084190}
+  - component: {fileID: 1000084191}
   m_Layer: 5
   m_Name: LapTimerText
   m_TagString: Untagged
@@ -2414,6 +2522,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000084185}
   m_CullTransparentMesh: 1
+--- !u!114 &1000084190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000084185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eba6980f775d8ad40a907aa0e29b51a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1000084191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000084185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b48f92019ffdf345acd1303c8c768f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1013168381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8935095989379886729, guid: f5d3c5e0f5f32c141911c08deee9e94d,
@@ -2493,7 +2625,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_line_type_01_15m_free_obs (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2927259199662858590, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 714872874, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
+    - {fileID: 652461854, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
 --- !u!4 &1342921683 stripped
 Transform:
@@ -2543,6 +2702,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1367353732}
     m_Modifications:
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8483781631078631208, guid: 87e0acbd6ddf7814097e377d5a5c716d,
         type: 3}
       propertyPath: m_Name
@@ -2676,6 +2845,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Track_Corner_90d_type_01_15x15m_free_obs (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539833070294148113, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd0831f60632baf4492b92858d493b29, type: 3}
@@ -2881,6 +3075,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs
       objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
       propertyPath: m_RootOrder
@@ -2936,6 +3135,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1001 &1549022255
@@ -3247,6 +3451,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_line_type_01_15m_free_obs
       objectReference: {fileID: 0}
+    - target: {fileID: 2927259199662858590, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3719774055919353995, guid: 1060f28bab45ab94eb490830df68466e,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1060f28bab45ab94eb490830df68466e, type: 3}
 --- !u!4 &1563771351 stripped
@@ -3296,6 +3525,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1367353732}
     m_Modifications:
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8483781631078631208, guid: 87e0acbd6ddf7814097e377d5a5c716d,
         type: 3}
       propertyPath: m_Name
@@ -3509,6 +3748,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
       propertyPath: m_RootOrder
@@ -3564,6 +3808,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1001 &1713907849
@@ -3573,6 +3822,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1367353732}
     m_Modifications:
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8483781631078631208, guid: 87e0acbd6ddf7814097e377d5a5c716d,
         type: 3}
       propertyPath: m_Name
@@ -3658,6 +3917,7 @@ GameObject:
   - component: {fileID: 1719069702}
   - component: {fileID: 1719069701}
   - component: {fileID: 1719069703}
+  - component: {fileID: 1719069704}
   m_Layer: 5
   m_Name: Fader
   m_TagString: Untagged
@@ -3741,6 +4001,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1719069704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719069699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5dd7a924d612a418decf402721260c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1747665133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3756,6 +4028,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
@@ -3812,6 +4089,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1001 &1776578341
@@ -3821,6 +4103,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1367353732}
     m_Modifications:
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7979408779013957373, guid: 87e0acbd6ddf7814097e377d5a5c716d,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8483781631078631208, guid: 87e0acbd6ddf7814097e377d5a5c716d,
         type: 3}
       propertyPath: m_Name
@@ -4009,6 +4301,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
       propertyPath: m_RootOrder
@@ -4064,6 +4361,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1 &1970728541
@@ -4126,8 +4428,8 @@ MonoBehaviour:
   _interactLayers:
     serializedVersion: 2
     m_Bits: 128
-  _faderAnimator: {fileID: 1719069703}
   _startTransform: {fileID: 502444839}
+  _fader: {fileID: 1719069704}
 --- !u!4 &1980665849 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
@@ -4200,6 +4502,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Track_Corner_90d_type_01_15x15m_free_obs (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5539833070294148113, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd0831f60632baf4492b92858d493b29, type: 3}
@@ -4276,6 +4603,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: Track_Corner_90d_type_01_15x15m_free_obs
       objectReference: {fileID: 0}
+    - target: {fileID: 5539833070294148113, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332497184033310148, guid: dd0831f60632baf4492b92858d493b29,
+        type: 3}
+      propertyPath: m_LightmapParameters
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dd0831f60632baf4492b92858d493b29, type: 3}
 --- !u!4 &2033789367 stripped
@@ -4299,6 +4651,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Track_Fence_line_type_01_white_block_1&5m_free_obs (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7160418957281086936, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 7499966408349325154, guid: 484e95a1def424c4b9f1ad821e0c226a,
         type: 3}
@@ -4355,6 +4712,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8673395678830521357, guid: 484e95a1def424c4b9f1ad821e0c226a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ac7d9a97c8bd19c4199840392bcb00b3, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 484e95a1def424c4b9f1ad821e0c226a, type: 3}
 --- !u!1 &2106628332
@@ -4428,6 +4790,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 884836313}
     m_Modifications:
+    - target: {fileID: 215794043, guid: d3aaba58dc16b854497fb238576f3ed3, type: 3}
+      propertyPath: m_NonLightmappedOnly
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 215794044, guid: d3aaba58dc16b854497fb238576f3ed3, type: 3}
+      propertyPath: m_LightShadowCasterMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6177675154920642049, guid: d3aaba58dc16b854497fb238576f3ed3,
         type: 3}
       propertyPath: m_RootOrder

@@ -6,13 +6,14 @@ public class FallsHandler : MonoBehaviour
 {
     [HideInInspector] public event Action OnFallHandleEvent;
     [SerializeField] private LayerMask _interactLayers;
-    [SerializeField] private Animator _faderAnimator;
     [SerializeField] private Transform _startTransform;
+    [SerializeField] private Fader _fader;
     private CarController _carController;
     private Transform _carTransform;
     private Rigidbody _carRigidbody;
-    private const string FadeIn = "FadeIn";
     private static bool _isFirstEnter = false;
+
+    public void Initialize() => _fader.Initialize();
 
     private void OnTriggerEnter(Collider other)
     {
@@ -29,13 +30,15 @@ public class FallsHandler : MonoBehaviour
 
     private IEnumerator HandleFall(GameObject obj)
     {
-        FadeInScreen();
+        _fader.FadeInScreen();
         yield return new WaitForSeconds(1.5f);
         GetBackOnTheRoad(obj);
         yield return new WaitForSeconds(1f);
-        FadeOutScreen();
+        _fader.FadeOutScreen();
         yield return new WaitForSeconds(0.1f);
         OnFallHandleEvent?.Invoke();
+        yield return new WaitForSeconds(1f);
+        _fader.DisableAnimator();
         yield break;
     }
 
@@ -65,8 +68,4 @@ public class FallsHandler : MonoBehaviour
 
         return _carController & _carRigidbody & _carRigidbody;
     }
-
-    private void FadeInScreen() => _faderAnimator?.SetBool(FadeIn, true);
-
-    private void FadeOutScreen() => _faderAnimator?.SetBool(FadeIn, false);
 }

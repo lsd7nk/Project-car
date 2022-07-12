@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 2581800735424805860}
   - component: {fileID: 1475981670109246529}
   - component: {fileID: 3719774055919353995}
-  - component: {fileID: 652461854}
-  - component: {fileID: 714872874}
   - component: {fileID: 1194570186}
   m_Layer: 3
   m_Name: Track_line_type_01_15m_free_obs
@@ -84,32 +82,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &652461854
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2927259199662858590}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 15.000005, y: 0.005, z: 15.000004}
-  m_Center: {x: 0, y: 0.0500005, z: -0.00000023841864}
---- !u!65 &714872874
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2927259199662858590}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 15.000001, y: 0.005, z: 15}
-  m_Center: {x: 0, y: 0.0500005, z: -0.00000023841858}
 --- !u!65 &1194570186
 BoxCollider:
   m_ObjectHideFlags: 0

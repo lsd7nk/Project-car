@@ -8,7 +8,10 @@ public class TimeInvoker : MonoBehaviour
 
     public void ResetSecondsAmount() => _oneSecondTime = 0f;
 
-    private void Update() { CountSecond(); }
+    private void Update()
+    {
+        CountSecond();
+    }
 
     private void CountSecond()
     {

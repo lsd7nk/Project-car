@@ -1,19 +1,21 @@
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(TimeInvoker))]
 public class LapTimer : MonoBehaviour
 {
-    [SerializeField] private DisplayTextUpdater _lapTimerUpdater;
+    private DisplayTextUpdater _lapTimerUpdater;
     private TimeInvoker _timeInvoker;
 
     public int TotalSecondsPerLap { get; private set; }
 
     public void Initialize()
     {
+        _lapTimerUpdater = GetComponent<DisplayTextUpdater>();
         _timeInvoker = GetComponent<TimeInvoker>();
 
         _timeInvoker.OnSecondTimeUpdateEvent += TotalSecondsIncrease;
-        _lapTimerUpdater.Initialize();
+        _lapTimerUpdater?.Initialize();
     }
 
     public void ResetTime()
