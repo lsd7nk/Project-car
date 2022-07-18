@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class Coin : MonoBehaviour
 {
     [SerializeField] private LayerMask _interactLayers;
-    [HideInInspector] public UnityEvent OnMoneyCollection;
+    [HideInInspector] public UnityEvent OnMoneyCollectionEvent;
 
     private void OnTriggerEnter(Collider collider)
     {
@@ -16,7 +16,7 @@ public class Coin : MonoBehaviour
 
     private void CollectMoney()
     {
-        OnMoneyCollection?.Invoke();
+        OnMoneyCollectionEvent?.Invoke();
         gameObject.SetActive(false);
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisplayTextUpdater : MonoBehaviour
+public sealed class DisplayTextUpdater : MonoBehaviour
 {
     private Text _textField;
 

@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolMonoBehaviour<T> where T : MonoBehaviour
+public sealed class PoolMonoBehaviour<T> where T : MonoBehaviour
 {
     private List<T> _pool;
     private Transform _container;
     private T _prefab;
+
+    public IEnumerable<T> Pool => _pool;
 
     public PoolMonoBehaviour(T prefab, Transform container, int objectAmount)
     {
@@ -21,11 +23,22 @@ public class PoolMonoBehaviour<T> where T : MonoBehaviour
         else { return CreateObject(state); }
     }
 
+    public void TurnOffObjects()
+    {
+        foreach (var poolObject in _pool)
+        {
+            if (poolObject.gameObject.activeInHierarchy)
+            {
+                poolObject.gameObject.SetActive(false);
+            }
+        }
+    }
+
     private bool HasFreeObject(out T freeObject, bool state)
     {
         freeObject = null;
 
-        foreach(var poolObject in _pool)
+        foreach (var poolObject in _pool)
         {
             if (!poolObject.gameObject.activeInHierarchy)
             {

@@ -6,7 +6,10 @@ public class LapsController : Controller
     [SerializeField] private CheckPoint[] _checkPoints;
     [SerializeField] private LapTimer _lapTimer;
     private LapsInteractor _lapsInteractor;
+    private FallsInteractor _fallsInteractor;
+    private BankInteractor _bankInteractor;
     private int _checkPointsCompleted;
+    private const int _maxLapsAmount = 10;
 
     public void Initialize()
     {
@@ -23,6 +26,8 @@ public class LapsController : Controller
     private void InitializeLapsInteractor()
     {
         _lapsInteractor = base.Initialize<LapsInteractor>();
+        _fallsInteractor = base.Initialize<FallsInteractor>();
+        _bankInteractor = base.Initialize<BankInteractor>();
 
         _lapsInteractor.OnChangeLapsAmountEvent += (int lapsAmount) =>
         {
@@ -38,7 +43,7 @@ public class LapsController : Controller
     {
         if (point.Index == 0 && _checkPointsCompleted == _checkPoints.Length)
         {
-            IncreaseLapsAmount();
+            ChangeLapsAmount();
             _lapTimer?.ResetTime();
         }
         else
@@ -47,14 +52,24 @@ public class LapsController : Controller
 
             if (++_checkPointsCompleted == _checkPoints.Length + 1)
             {
-                IncreaseLapsAmount();
+                ChangeLapsAmount();
             }
         }
     }
 
-    private void IncreaseLapsAmount()
+    private void ChangeLapsAmount()
     {
         _checkPointsCompleted = 1;
-        _lapsInteractor?.IncreaseLapsAmount();
+
+        if (_lapsInteractor.LapsCompletedAmount >= _maxLapsAmount)
+        {
+            _lapsInteractor.ResetLapsAmount();
+            _fallsInteractor.ResetFallsAmount();
+            _bankInteractor.AddCoins(_maxLapsAmount);
+        }
+        else
+        {
+            _lapsInteractor?.IncreaseLapsAmount();
+        }
     }
 }

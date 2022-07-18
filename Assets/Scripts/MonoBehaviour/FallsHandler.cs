@@ -30,6 +30,7 @@ public class FallsHandler : MonoBehaviour
 
     private IEnumerator HandleFall(GameObject obj)
     {
+        _fader.gameObject.SetActive(true);
         _fader.FadeInScreen();
         yield return new WaitForSeconds(1.5f);
         GetBackOnTheRoad(obj);
@@ -38,7 +39,7 @@ public class FallsHandler : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         OnFallHandleEvent?.Invoke();
         yield return new WaitForSeconds(1f);
-        _fader.DisableAnimator();
+        _fader.gameObject.SetActive(false);
         yield break;
     }
 

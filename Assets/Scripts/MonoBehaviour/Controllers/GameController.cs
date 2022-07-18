@@ -4,8 +4,8 @@ public class GameController : MonoBehaviour
 {
     private InteractorsBase _interactors;
     private RepositoriesBase _repositories;
-    [SerializeField] private CameraFollow _cameraFollow;
-    
+    private CameraFollow _cameraFollow;
+
     public static GameController Instance { get; private set; }
     public InteractorsBase InteractorsBase => _interactors;
 
@@ -17,10 +17,11 @@ public class GameController : MonoBehaviour
         Initialize();
     }
 
-    private void Initialize()  // initialize repositories & interactors
+    private void Initialize()
     {
         _interactors = new InteractorsBase();
         _repositories = new RepositoriesBase();
+        _cameraFollow = Camera.main.GetComponent<CameraFollow>();
 
         _interactors.Initialize();
         AddRepositories();

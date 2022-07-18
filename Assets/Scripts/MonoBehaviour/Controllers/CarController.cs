@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour
 {
     private CarControls _controls;
@@ -9,22 +10,24 @@ public class CarController : MonoBehaviour
     private float _verticalInput;
     private bool _isBreaking;
 
+    [Header("Characteristics")]
     [SerializeField] private float _motorForce;
     [SerializeField] private float _breakForce;
-    [SerializeField] private float _maxSteerAngle;
+    [SerializeField][Range(1, 30)] private float _maxSteerAngle;
     [SerializeField][Range(5, 10)] private float _wheelRotationSpeed = 8f;
 
+    [Header("Wheels")]
     [SerializeField] private WheelCollider[] _frontWheelsColliders;
     [SerializeField] private WheelCollider[] _rearWheelsColliders;
 
     [SerializeField] private Transform[] _frontWheelsTransforms;
     [SerializeField] private Transform[] _rearWheelsTransforms;
 
-    private void Awake() { _controls = new CarControls(); }
+    private void Awake() => _controls = new CarControls();
 
-    private void OnEnable() { _controls.Car.Enable(); }
+    private void OnEnable() => _controls.Car.Enable();
 
-    private void OnDisable() { _controls.Car.Disable(); }
+    private void OnDisable() => _controls.Car.Disable();
 
     private void FixedUpdate()
     {
