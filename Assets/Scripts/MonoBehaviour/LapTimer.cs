@@ -2,7 +2,7 @@ using UnityEngine;
 using System;
 
 [RequireComponent(typeof(TimeInvoker))]
-public class LapTimer : MonoBehaviour
+public sealed class LapTimer : MonoBehaviour
 {
     private DisplayTextUpdater _lapTimerUpdater;
     private TimeInvoker _timeInvoker;
@@ -26,15 +26,11 @@ public class LapTimer : MonoBehaviour
         _lapTimerUpdater?.SetText($"{SecondsToTimeSpan()}");
     }
 
-    private void OnDisable() 
-    {
-        _timeInvoker.OnSecondTimeUpdateEvent -= TotalSecondsIncrease;
-    }
+    private void OnDisable() => _timeInvoker.OnSecondTimeUpdateEvent -= TotalSecondsIncrease;
 
     private void TotalSecondsIncrease()
     {
         ++TotalSecondsPerLap;
-
         _lapTimerUpdater?.SetText($"{SecondsToTimeSpan()}");
     }
 

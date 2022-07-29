@@ -34,6 +34,19 @@ public sealed class PoolMonoBehaviour<T> where T : MonoBehaviour
         }
     }
 
+    public bool HasActiveObject()
+    {
+        foreach (var poolObject in _pool)
+        {
+            if (poolObject.gameObject.activeInHierarchy)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     private bool HasFreeObject(out T freeObject, bool state)
     {
         freeObject = null;

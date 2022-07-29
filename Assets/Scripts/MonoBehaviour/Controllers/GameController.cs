@@ -4,7 +4,7 @@ public class GameController : MonoBehaviour
 {
     private InteractorsBase _interactors;
     private RepositoriesBase _repositories;
-    private CameraFollow _cameraFollow;
+    private CameraFollowTo _cameraFollow;
 
     public static GameController Instance { get; private set; }
     public InteractorsBase InteractorsBase => _interactors;
@@ -21,7 +21,7 @@ public class GameController : MonoBehaviour
     {
         _interactors = new InteractorsBase();
         _repositories = new RepositoriesBase();
-        _cameraFollow = Camera.main.GetComponent<CameraFollow>();
+        _cameraFollow = Camera.main.GetComponent<CameraFollowTo>();
 
         _interactors.Initialize();
         AddRepositories();

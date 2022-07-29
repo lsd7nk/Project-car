@@ -38,7 +38,7 @@ public sealed class CoinSpawner : MonoBehaviour
 
     private void AllocateCoinsByPoints(int lapsAmount = 10)
     {
-        if (_coinsPoints == null) { return; }
+        if (_coinsPoints == null || _pool.HasActiveObject()) { return; }
 
         int coinsAmount = Random.Range(1, lapsAmount);
         _pool.TurnOffObjects();
