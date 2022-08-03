@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public interface IPauseHandler
 {
@@ -10,6 +9,7 @@ public interface IPauseHandler
 public sealed class PauseManager : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private GameObject _pauseCanvas;
+    [SerializeField] private GameObject _exitConfirmationCanvas;
     private PauseMenuControls _controls;
     private List<IPauseHandler> _handlers;
 
@@ -25,7 +25,7 @@ public sealed class PauseManager : MonoBehaviour, IPauseHandler
     {
         foreach (IPauseHandler handler in _handlers)
         {
-            handler.SetPause(IsPaused);
+            handler.SetPause(isPaused);
         }
 
         if (_pauseCanvas != null)
@@ -40,12 +40,7 @@ public sealed class PauseManager : MonoBehaviour, IPauseHandler
     {
         if (Instance == null)
         {
-            Instance = this;
-            IsPaused = false;
-            _handlers = new List<IPauseHandler>();
-
-            ControlsInitialize();
-            DontDestroyOnLoad();
+            Initialize();   
         }
         else if (Instance == this)
         {
@@ -56,6 +51,16 @@ public sealed class PauseManager : MonoBehaviour, IPauseHandler
     private void OnEnable() => _controls?.Enable();
 
     private void OnDisable() => _controls?.Disable();
+
+    private void Initialize()
+    {
+        Instance = this;
+        IsPaused = false;
+        _handlers = new List<IPauseHandler>();
+
+        ControlsInitialize();
+        DontDestroyOnLoad();
+    }
 
     private void ControlsInitialize()
     {
@@ -68,12 +73,13 @@ public sealed class PauseManager : MonoBehaviour, IPauseHandler
         if (InMenu) { return; }
 
         IsPaused = !IsPaused;
-        SetPause();
+        SetPause(IsPaused);
     }
 
     private void DontDestroyOnLoad()
     {
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(_pauseCanvas);
+        DontDestroyOnLoad(_exitConfirmationCanvas);
     }
 }

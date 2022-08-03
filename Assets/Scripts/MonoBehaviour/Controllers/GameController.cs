@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; private set; }
     public InteractorsBase InteractorsBase => _interactors;
+    [field: SerializeField] public GameObject TrainingCanvas { get; private set; }
 
     private void Awake()
     {

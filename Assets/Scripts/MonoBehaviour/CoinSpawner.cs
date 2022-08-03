@@ -9,6 +9,8 @@ public sealed class CoinSpawner : MonoBehaviour
     private PoolMonoBehaviour<Coin> _pool;
     private UnityAction _callback;
 
+    [field: SerializeField] public TrainingObject TrainingConfig { get; private set; }
+
     public void Initialize(UnityAction callback)
     {
         if (_coinPrefab == null) { return; }
@@ -30,9 +32,19 @@ public sealed class CoinSpawner : MonoBehaviour
 
     private void SetCallbackByCoinEvent()
     {
+        if (_callback == null) { return; }
+
         foreach (var coin in _pool.Pool)
         {
             coin.OnMoneyCollectionEvent.AddListener(_callback);
+
+            if (TrainingConfig != null)
+            {
+                if (TrainingConfig.IsCalledFromAnotherScript)
+                {
+                    coin.OnMoneyCollectionEvent.AddListener(TrainingConfig.TrainingDescriptionDisplay);
+                }
+            }
         }
     }
 

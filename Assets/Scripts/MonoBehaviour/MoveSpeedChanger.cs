@@ -11,6 +11,8 @@ public sealed class MoveSpeedChanger : MonoBehaviour
     [SerializeField] private bool _isBoost;
     private CarController _carController;
 
+    public bool IsPaused => PauseManager.Instance.IsPaused;
+
     private void OnTriggerEnter(Collider other)
     {
         if ((_interactLayers.value & (1 << other.gameObject.layer)) != 0)

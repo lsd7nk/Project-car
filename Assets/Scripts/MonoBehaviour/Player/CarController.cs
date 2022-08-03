@@ -37,8 +37,6 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     private float _carSpeed;
     private float _localVelocityX;
     private float _localVelocityZ;
-    private Vector3 _tempVelocvity;
-    private float _tempMotorTorque;
     // Used to know whether the throttle has reached the maximum value. It goes from -1 to 1.
     private float _throttleAxis;
     private float _steeringAxis;
@@ -449,7 +447,8 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
         Quaternion rotation;
 
         wheelCollider.GetWorldPose(out position, out rotation);
-        wheelTransform.rotation = Quaternion.Lerp(wheelTransform.rotation, rotation, 8f * Time.fixedDeltaTime);
+
+        wheelTransform.rotation = Quaternion.Lerp(wheelTransform.rotation, rotation, 15f * Time.fixedDeltaTime);
         wheelTransform.position = position;
     }
 
@@ -495,16 +494,5 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
         _localVelocityX = transform.InverseTransformDirection(_rigidbody.velocity).x;
         // Save the local velocity of the car in the z axis. Used to know if the car is going forward or backwards.
         _localVelocityZ = transform.InverseTransformDirection(_rigidbody.velocity).z;
-    }
-
-    private void HandleMotorWithValue(float value)
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            _frontWheelsColliders[i].brakeTorque = 0f;
-            _frontWheelsColliders[i].motorTorque = value;
-            _rearWheelsColliders[i].brakeTorque = 0f;
-            _rearWheelsColliders[i].motorTorque = value;
-        }
     }
 }

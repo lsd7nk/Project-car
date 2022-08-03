@@ -11,7 +11,9 @@ public class FallsHandler : MonoBehaviour
     private CarController _carController;
     private Transform _carTransform;
     private Rigidbody _carRigidbody;
-    private static bool _isFirstEnter = false;
+    private bool _isFirstEnter = false;
+
+    [field: SerializeField] public TrainingObject Training—onfig { get; private set; } 
 
     public void Initialize() => _fader.Initialize();
 
@@ -40,6 +42,15 @@ public class FallsHandler : MonoBehaviour
         OnFallHandleEvent?.Invoke();
         yield return new WaitForSeconds(1f);
         _fader.gameObject.SetActive(false);
+
+        if (Training—onfig != null)
+        {
+            if (Training—onfig.IsCalledFromAnotherScript && !Training—onfig.IsTriggerPassed)
+            {
+                Training—onfig.TrainingDescriptionDisplay();
+            }
+        }
+
         yield break;
     }
 

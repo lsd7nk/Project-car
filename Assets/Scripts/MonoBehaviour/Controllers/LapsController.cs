@@ -11,6 +11,8 @@ public class LapsController : Controller
     private int _checkPointsCompleted;
     private const int _maxLapsAmount = 10;
 
+    [field: SerializeField] public TrainingObject Training—onfig { get; private set; }
+
     public void Initialize()
     {
         InitializeLapsInteractor();
@@ -70,6 +72,14 @@ public class LapsController : Controller
         else
         {
             _lapsInteractor?.IncreaseLapsAmount();
+
+            if (Training—onfig != null)
+            {
+                if (Training—onfig.IsCalledFromAnotherScript && !Training—onfig.IsTriggerPassed)
+                {
+                    Training—onfig.TrainingDescriptionDisplay();
+                }
+            }
         }
     }
 }
