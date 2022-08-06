@@ -32,6 +32,10 @@ public sealed class PauseManager : MonoBehaviour, IPauseHandler
         {
             _pauseCanvas.SetActive(IsPaused);
         }
+        if (_exitConfirmationCanvas != null)
+        {
+            _exitConfirmationCanvas.SetActive(false);
+        }
     }
 
     public void Resume() => ChangePauseState();
