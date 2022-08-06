@@ -8,6 +8,8 @@ public sealed class GameSceneManager : MonoBehaviour
     [SerializeField] private GameObject _loadCanvas;
     [SerializeField] private Image _progressBar;
     private float _targetFillAmount;
+
+    public bool IsLoadingScene { get; private set; }
     
     public static GameSceneManager Instance { get; private set; }
     public bool InMenu { get; private set; }
@@ -16,32 +18,39 @@ public sealed class GameSceneManager : MonoBehaviour
 
     public async void LoadScene(string sceneName)
     {
-        if (IsPaused)
+        if (!IsLoadingScene)
         {
-            PauseManager.Resume();
+            IsLoadingScene = true;
+
+            if (IsPaused)
+            {
+                PauseManager.Resume();
+            }
+
+            var scene = SceneManager.LoadSceneAsync(sceneName);
+
+            PrepareToLoad();
+
+            scene.allowSceneActivation = false;
+            _loadCanvas.SetActive(true);
+
+            do
+            {
+                await Task.Delay(300);  // clear this
+                _targetFillAmount = scene.progress;
+
+            } while (scene.progress < 0.9f);
+
+            await Task.Delay(1000);  // clear this
+
+            scene.allowSceneActivation = true;
+            InMenu = (sceneName == "Menu") ? true : false;
+
+            await Task.Delay(100);
+            _loadCanvas.SetActive(false);
+
+            IsLoadingScene = false;
         }
-
-        var scene = SceneManager.LoadSceneAsync(sceneName);
-
-        PrepareToLoad();
-
-        scene.allowSceneActivation = false;
-        _loadCanvas.SetActive(true);
-
-        do
-        {
-            await Task.Delay(200);  // clear this
-            _targetFillAmount = scene.progress;
-
-        } while (scene.progress < 0.9f);
-
-        await Task.Delay(1000);  // clear this
-
-        scene.allowSceneActivation = true;
-        InMenu = (sceneName == "Menu") ? true : false;
-
-        await Task.Delay(100);
-        _loadCanvas.SetActive(false);
     }
 
     public void Quit() => Application.Quit();
@@ -51,6 +60,7 @@ public sealed class GameSceneManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            IsLoadingScene = false;
             DontDestroyOnLoad();
         }
         else if (Instance == this)
