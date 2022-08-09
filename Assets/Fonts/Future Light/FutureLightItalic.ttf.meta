@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: dfb672a8899145a498c79a4a35542873
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Future Light
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b8cdb83d2a19a1749a1cbd5fc202f6cc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
