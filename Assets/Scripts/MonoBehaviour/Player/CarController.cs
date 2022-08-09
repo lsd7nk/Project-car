@@ -1,6 +1,13 @@
 using System;
 using UnityEngine;
 
+[System.Serializable]
+public sealed class Wheel
+{
+    [field: SerializeField] public Transform Transform { get; private set; }
+    [field: SerializeField] public WheelCollider Collider { get; private set; }
+} 
+
 [RequireComponent(typeof(Rigidbody))]
 public sealed class CarController : MonoBehaviour, IPauseHandler
 {
@@ -10,30 +17,25 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     [HideInInspector] public event Action OnResetMoveSpeedEvent;
 
     [Header("Characteristics")]
-    [SerializeField][Range(90f, 150f)] private float _maxForwardSpeed;
-    [SerializeField][Range(35f, 50f)] private float _maxBackwardSpeed;
-    [SerializeField][Range(15f, 35f)] private float _maxSteeringAngle;
-    [SerializeField][Range(0f, 1f)] private float _steeringSpeed = 0.5f;
-    [SerializeField][Range(1f, 10f)] private float _accelerationMultiplier;
-    [SerializeField][Range(0f, 3f)] private float _decelerationMultiplier;
-    [SerializeField][Range(1f, 10f)] private float _handbrakeMultiplier;
-    [SerializeField][Range(300f, 600f)] private float _breakForce;
+    [SerializeField] private CarConfig _config;
+    private float _maxForwardSpeed;
+    private float _accelerationMultiplier;
 
     [Header("Wheels")]
-    [SerializeField] private WheelCollider[] _frontWheelsColliders;
-    [SerializeField] private WheelCollider[] _rearWheelsColliders;
+    [SerializeField] private Wheel[] _frontWheels = new Wheel[2];
+    [SerializeField] private Wheel[] _rearWheels = new Wheel[2];
 
-    [SerializeField] private Transform[] _frontWheelsTransforms;
-    [SerializeField] private Transform[] _rearWheelsTransforms;
-    
     private CarControls _controls;
     private Rigidbody _rigidbody;
+
     private float _horizontalInput;
     private float _verticalInput;
+
     private bool _isBreaking;
     private bool _isDecelerating;
     private bool _isDrifting;
     private bool _isTireSkidded;
+
     private float _carSpeed;
     private float _localVelocityX;
     private float _localVelocityZ;
@@ -85,8 +87,8 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     {
         for (int i = 0; i < 2; i++)
         {
-            _frontWheelsColliders[i].brakeTorque = currentBreakForce;
-            _rearWheelsColliders[i].brakeTorque = currentBreakForce;
+            _frontWheels[i].Collider.brakeTorque = currentBreakForce;
+            _rearWheels[i].Collider.brakeTorque = currentBreakForce;
         }
     }
 
@@ -101,7 +103,13 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
         PauseManager.RegisterHandler(this);
     }
 
-    private void Start() => WheelFrictionCurveInitialize();
+    private void Start()
+    {
+        _maxForwardSpeed = _config.MaxForwardSpeed;
+        _accelerationMultiplier = _config.AccelerationMultiplier;
+
+        WheelFrictionCurveInitialize();
+    }
 
     private void OnEnable()
     {
@@ -175,7 +183,7 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
 
             if (_localVelocityZ < -1f)
             {
-                ApplyBreaking(_breakForce);
+                ApplyBreaking(_config.BreakForce);
             }
             else
             {
@@ -198,11 +206,11 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
 
             if (_localVelocityZ > 1f)
             {
-                ApplyBreaking(_breakForce);
+                ApplyBreaking(_config.BreakForce);
             }
             else
             {
-                HandleMotor(_maxBackwardSpeed);
+                HandleMotor(_config.MaxBackwardSpeed);
             }
         }
         else
@@ -215,7 +223,7 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     {
         if (_horizontalInput > 0f)
         {
-            _steeringAxis = _steeringAxis + (Time.fixedDeltaTime * 10 * _steeringSpeed);
+            _steeringAxis = _steeringAxis + (Time.fixedDeltaTime * 10 * _config.SteeringSpeed);
 
             if (_steeringAxis > 1f)
             {
@@ -224,7 +232,7 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
         }
         else if (_horizontalInput < 0f)
         {
-            _steeringAxis = _steeringAxis - (Time.fixedDeltaTime * 10 * _steeringSpeed);
+            _steeringAxis = _steeringAxis - (Time.fixedDeltaTime * 10 * _config.SteeringSpeed);
 
             if (_steeringAxis < -1f)
             {
@@ -246,18 +254,18 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
         {
             for (int i = 0; i < 2; i++)  // Apply positive torque in all wheels to go forward if maxSpeed has not been reached.
             {
-                _frontWheelsColliders[i].brakeTorque = 0;
-                _frontWheelsColliders[i].motorTorque = (_accelerationMultiplier * 50f) * _throttleAxis;
-                _rearWheelsColliders[i].brakeTorque = 0;
-                _rearWheelsColliders[i].motorTorque = (_accelerationMultiplier * 50f) * _throttleAxis;
+                _frontWheels[i].Collider.brakeTorque = 0;
+                _frontWheels[i].Collider.motorTorque = (_accelerationMultiplier * 50f) * _throttleAxis;
+                _rearWheels[i].Collider.brakeTorque = 0;
+                _rearWheels[i].Collider.motorTorque = (_accelerationMultiplier * 50f) * _throttleAxis;
             }
         }
         else
         {
             for (int i = 0; i < 2; i++)  // If the maxSpeed has been reached, then stop applying torque to the wheels.
             {
-                _frontWheelsColliders[i].motorTorque = 0;
-                _rearWheelsColliders[i].motorTorque = 0;
+                _frontWheels[i].Collider.motorTorque = 0;
+                _rearWheels[i].Collider.motorTorque = 0;
             }
         }
     }
@@ -279,11 +287,11 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
         float secureStartingPoint;
 
         _driftingAxis = _driftingAxis + Time.fixedDeltaTime;
-        secureStartingPoint = _driftingAxis * _flWextremumSlip * _handbrakeMultiplier;
+        secureStartingPoint = _driftingAxis * _flWextremumSlip * _config.HandbrakeMultiplier;
 
         if (secureStartingPoint < _flWextremumSlip)
         {
-            _driftingAxis = _flWextremumSlip / (_flWextremumSlip * _handbrakeMultiplier);
+            _driftingAxis = _flWextremumSlip / (_flWextremumSlip * _config.HandbrakeMultiplier);
         }
         if (_driftingAxis > 1f)
         {
@@ -294,17 +302,17 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
 
         if (_driftingAxis < 1f)
         {
-            _flWheelFriction.extremumSlip = _flWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _frontWheelsColliders[0].sidewaysFriction = _flWheelFriction;
+            _flWheelFriction.extremumSlip = _flWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _frontWheels[0].Collider.sidewaysFriction = _flWheelFriction;
 
-            _frWheelFriction.extremumSlip = _frWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _frontWheelsColliders[1].sidewaysFriction = _frWheelFriction;
+            _frWheelFriction.extremumSlip = _frWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _frontWheels[1].Collider.sidewaysFriction = _frWheelFriction;
 
-            _rlWheelFriction.extremumSlip = _rlWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _rearWheelsColliders[0].sidewaysFriction = _rlWheelFriction;
+            _rlWheelFriction.extremumSlip = _rlWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _rearWheels[0].Collider.sidewaysFriction = _rlWheelFriction;
 
-            _rrWheelFriction.extremumSlip = _rrWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _rearWheelsColliders[1].sidewaysFriction = _rrWheelFriction;
+            _rrWheelFriction.extremumSlip = _rrWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _rearWheels[1].Collider.sidewaysFriction = _rrWheelFriction;
         }
 
         _isTireSkidded = true;
@@ -332,7 +340,7 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
             }
         }
 
-        _rigidbody.velocity = _rigidbody.velocity * (1f / (1f + (0.025f * _decelerationMultiplier)));
+        _rigidbody.velocity = _rigidbody.velocity * (1f / (1f + (0.025f * _config.DecelerationMultiplier)));
 
         TrottleOff();
 
@@ -364,33 +372,33 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
         // car's grip.
         if (_flWheelFriction.extremumSlip > _flWextremumSlip)
         {
-            _flWheelFriction.extremumSlip = _flWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _frontWheelsColliders[0].sidewaysFriction = _flWheelFriction;
+            _flWheelFriction.extremumSlip = _flWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _frontWheels[0].Collider.sidewaysFriction = _flWheelFriction;
 
-            _frWheelFriction.extremumSlip = _frWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _frontWheelsColliders[1].sidewaysFriction = _frWheelFriction;
+            _frWheelFriction.extremumSlip = _frWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _frontWheels[1].Collider.sidewaysFriction = _frWheelFriction;
 
-            _rlWheelFriction.extremumSlip = _rlWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _rearWheelsColliders[0].sidewaysFriction = _rlWheelFriction;
+            _rlWheelFriction.extremumSlip = _rlWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _rearWheels[0].Collider.sidewaysFriction = _rlWheelFriction;
 
-            _rrWheelFriction.extremumSlip = _rrWextremumSlip * _handbrakeMultiplier * _driftingAxis;
-            _rearWheelsColliders[1].sidewaysFriction = _rrWheelFriction;
+            _rrWheelFriction.extremumSlip = _rrWextremumSlip * _config.HandbrakeMultiplier * _driftingAxis;
+            _rearWheels[1].Collider.sidewaysFriction = _rrWheelFriction;
 
             Invoke("RecoverTraction", Time.fixedDeltaTime);
         }
         else if (_flWheelFriction.extremumSlip < _flWextremumSlip)
         {
             _flWheelFriction.extremumSlip = _flWextremumSlip;
-            _frontWheelsColliders[0].sidewaysFriction = _flWheelFriction;
+            _frontWheels[0].Collider.sidewaysFriction = _flWheelFriction;
 
             _frWheelFriction.extremumSlip = _frWextremumSlip;
-            _frontWheelsColliders[1].sidewaysFriction = _frWheelFriction;
+            _frontWheels[1].Collider.sidewaysFriction = _frWheelFriction;
 
             _rlWheelFriction.extremumSlip = _rlWextremumSlip;
-            _rearWheelsColliders[0].sidewaysFriction = _rlWheelFriction;
+            _rearWheels[0].Collider.sidewaysFriction = _rlWheelFriction;
 
             _rrWheelFriction.extremumSlip = _rrWextremumSlip;
-            _rearWheelsColliders[1].sidewaysFriction = _rrWheelFriction;
+            _rearWheels[1].Collider.sidewaysFriction = _rrWheelFriction;
 
             _driftingAxis = 0f;
         }
@@ -400,18 +408,18 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     {
         for (int i = 0; i < 2; i++)
         {
-            _frontWheelsColliders[i].motorTorque = 0f;
-            _rearWheelsColliders[i].motorTorque = 0f;
+            _frontWheels[i].Collider.motorTorque = 0f;
+            _rearWheels[i].Collider.motorTorque = 0f;
         }
     }
 
     private void TurnWheels()
     {
-        float steeringAngle = _steeringAxis * _maxSteeringAngle;
+        float steeringAngle = _steeringAxis * _config.MaxSteeringAngle;
 
         for (int i = 0; i < 2; i++)
         {
-            _frontWheelsColliders[i].steerAngle = Mathf.Lerp(_frontWheelsColliders[i].steerAngle, steeringAngle, _steeringSpeed);
+            _frontWheels[i].Collider.steerAngle = Mathf.Lerp(_frontWheels[i].Collider.steerAngle, steeringAngle, _config.SteeringSpeed);
         }
     }
 
@@ -419,14 +427,14 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     {
         if (_steeringAxis > 0f)
         {
-            _steeringAxis = _steeringAxis - (Time.fixedDeltaTime * 10f * _steeringSpeed);
+            _steeringAxis = _steeringAxis - (Time.fixedDeltaTime * 10f * _config.SteeringSpeed);
         }
         else if (_steeringAxis < 0f)
         {
-            _steeringAxis = _steeringAxis + (Time.fixedDeltaTime * 10f * _steeringSpeed);
+            _steeringAxis = _steeringAxis + (Time.fixedDeltaTime * 10f * _config.SteeringSpeed);
         }
 
-        if (Mathf.Abs(_frontWheelsColliders[0].steerAngle) < 1f)
+        if (Mathf.Abs(_frontWheels[0].Collider.steerAngle) < 1f)
         {
             _steeringAxis = 0f;
         }
@@ -436,8 +444,8 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     {
         for (int i = 0; i < 2; i++)
         {
-            UpdateSingleWheel(_frontWheelsColliders[i], _frontWheelsTransforms[i]);
-            UpdateSingleWheel(_rearWheelsColliders[i], _rearWheelsTransforms[i]);
+            UpdateSingleWheel(_frontWheels[i].Collider, _frontWheels[i].Transform);
+            UpdateSingleWheel(_rearWheels[i].Collider, _rearWheels[i].Transform);
         }
     }
 
@@ -455,41 +463,41 @@ public sealed class CarController : MonoBehaviour, IPauseHandler
     private void WheelFrictionCurveInitialize()
     {
         _flWheelFriction = new WheelFrictionCurve();
-        _flWheelFriction.extremumSlip = _frontWheelsColliders[0].sidewaysFriction.extremumSlip;
-        _flWextremumSlip = _frontWheelsColliders[0].sidewaysFriction.extremumSlip;
-        _flWheelFriction.extremumValue = _frontWheelsColliders[0].sidewaysFriction.extremumValue;
-        _flWheelFriction.asymptoteSlip = _frontWheelsColliders[0].sidewaysFriction.asymptoteSlip;
-        _flWheelFriction.asymptoteValue = _frontWheelsColliders[0].sidewaysFriction.asymptoteValue;
-        _flWheelFriction.stiffness = _frontWheelsColliders[0].sidewaysFriction.stiffness;
+        _flWheelFriction.extremumSlip = _frontWheels[0].Collider.sidewaysFriction.extremumSlip;
+        _flWextremumSlip = _frontWheels[0].Collider.sidewaysFriction.extremumSlip;
+        _flWheelFriction.extremumValue = _frontWheels[0].Collider.sidewaysFriction.extremumValue;
+        _flWheelFriction.asymptoteSlip = _frontWheels[0].Collider.sidewaysFriction.asymptoteSlip;
+        _flWheelFriction.asymptoteValue = _frontWheels[0].Collider.sidewaysFriction.asymptoteValue;
+        _flWheelFriction.stiffness = _frontWheels[0].Collider.sidewaysFriction.stiffness;
 
         _frWheelFriction = new WheelFrictionCurve();
-        _frWheelFriction.extremumSlip = _frontWheelsColliders[1].sidewaysFriction.extremumSlip;
-        _frWextremumSlip = _frontWheelsColliders[1].sidewaysFriction.extremumSlip;
-        _frWheelFriction.extremumValue = _frontWheelsColliders[1].sidewaysFriction.extremumValue;
-        _frWheelFriction.asymptoteSlip = _frontWheelsColliders[1].sidewaysFriction.asymptoteSlip;
-        _frWheelFriction.asymptoteValue = _frontWheelsColliders[1].sidewaysFriction.asymptoteValue;
-        _frWheelFriction.stiffness = _frontWheelsColliders[1].sidewaysFriction.stiffness;
+        _frWheelFriction.extremumSlip = _frontWheels[1].Collider.sidewaysFriction.extremumSlip;
+        _frWextremumSlip = _frontWheels[1].Collider.sidewaysFriction.extremumSlip;
+        _frWheelFriction.extremumValue = _frontWheels[1].Collider.sidewaysFriction.extremumValue;
+        _frWheelFriction.asymptoteSlip = _frontWheels[1].Collider.sidewaysFriction.asymptoteSlip;
+        _frWheelFriction.asymptoteValue = _frontWheels[1].Collider.sidewaysFriction.asymptoteValue;
+        _frWheelFriction.stiffness = _frontWheels[1].Collider.sidewaysFriction.stiffness;
 
         _rlWheelFriction = new WheelFrictionCurve();
-        _rlWheelFriction.extremumSlip = _rearWheelsColliders[0].sidewaysFriction.extremumSlip;
-        _rlWextremumSlip = _rearWheelsColliders[0].sidewaysFriction.extremumSlip;
-        _rlWheelFriction.extremumValue = _rearWheelsColliders[0].sidewaysFriction.extremumValue;
-        _rlWheelFriction.asymptoteSlip = _rearWheelsColliders[0].sidewaysFriction.asymptoteSlip;
-        _rlWheelFriction.asymptoteValue = _rearWheelsColliders[0].sidewaysFriction.asymptoteValue;
-        _rlWheelFriction.stiffness = _rearWheelsColliders[0].sidewaysFriction.stiffness;
+        _rlWheelFriction.extremumSlip = _rearWheels[0].Collider.sidewaysFriction.extremumSlip;
+        _rlWextremumSlip = _rearWheels[0].Collider.sidewaysFriction.extremumSlip;
+        _rlWheelFriction.extremumValue = _rearWheels[0].Collider.sidewaysFriction.extremumValue;
+        _rlWheelFriction.asymptoteSlip = _rearWheels[0].Collider.sidewaysFriction.asymptoteSlip;
+        _rlWheelFriction.asymptoteValue = _rearWheels[0].Collider.sidewaysFriction.asymptoteValue;
+        _rlWheelFriction.stiffness = _rearWheels[0].Collider.sidewaysFriction.stiffness;
 
         _rrWheelFriction = new WheelFrictionCurve();
-        _rrWheelFriction.extremumSlip = _rearWheelsColliders[1].sidewaysFriction.extremumSlip;
-        _rrWextremumSlip = _rearWheelsColliders[1].sidewaysFriction.extremumSlip;
-        _rrWheelFriction.extremumValue = _rearWheelsColliders[1].sidewaysFriction.extremumValue;
-        _rrWheelFriction.asymptoteSlip = _rearWheelsColliders[1].sidewaysFriction.asymptoteSlip;
-        _rrWheelFriction.asymptoteValue = _rearWheelsColliders[1].sidewaysFriction.asymptoteValue;
-        _rrWheelFriction.stiffness = _rearWheelsColliders[1].sidewaysFriction.stiffness;
+        _rrWheelFriction.extremumSlip = _rearWheels[1].Collider.sidewaysFriction.extremumSlip;
+        _rrWextremumSlip = _rearWheels[1].Collider.sidewaysFriction.extremumSlip;
+        _rrWheelFriction.extremumValue = _rearWheels[1].Collider.sidewaysFriction.extremumValue;
+        _rrWheelFriction.asymptoteSlip = _rearWheels[1].Collider.sidewaysFriction.asymptoteSlip;
+        _rrWheelFriction.asymptoteValue = _rearWheels[1].Collider.sidewaysFriction.asymptoteValue;
+        _rrWheelFriction.stiffness = _rearWheels[1].Collider.sidewaysFriction.stiffness;
     }
 
     private void CalculateCarStates()
     {
-        _carSpeed = (2 * Mathf.PI * _frontWheelsColliders[0].radius * _frontWheelsColliders[0].rpm * 60) / 1000;
+        _carSpeed = (2 * Mathf.PI * _frontWheels[0].Collider.radius * _frontWheels[0].Collider.rpm * 60) / 1000;
         // Save the local velocity of the car in the x axis. Used to know if the car is drifting.
         _localVelocityX = transform.InverseTransformDirection(_rigidbody.velocity).x;
         // Save the local velocity of the car in the z axis. Used to know if the car is going forward or backwards.

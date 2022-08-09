@@ -1139,7 +1139,7 @@ Rigidbody:
   m_GameObject: {fileID: 3311311803080157842}
   serializedVersion: 2
   m_Mass: 950
-  m_Drag: 0
+  m_Drag: 0.0001
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -1158,26 +1158,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ec853b6c248cbe49aa309c6c99378ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxForwardSpeed: 120
-  _maxBackwardSpeed: 40
-  _maxSteeringAngle: 35
-  _steeringSpeed: 0.5
-  _accelerationMultiplier: 5
-  _decelerationMultiplier: 1
-  _handbrakeMultiplier: 5
-  _breakForce: 415
-  _frontWheelsColliders:
-  - {fileID: 2716459193614891142}
-  - {fileID: 4795950753765878369}
-  _rearWheelsColliders:
-  - {fileID: 3145262460232535540}
-  - {fileID: 1057494946909100755}
-  _frontWheelsTransforms:
-  - {fileID: 3794951908810334882}
-  - {fileID: 948405438201742482}
-  _rearWheelsTransforms:
-  - {fileID: 9188640840458259854}
-  - {fileID: 28636839611146925}
+  _config: {fileID: 11400000, guid: f97aec7a47d8cf04ab380e5c0d474296, type: 2}
+  _frontWheels:
+  - <Transform>k__BackingField: {fileID: 3794951908810334882}
+    <Collider>k__BackingField: {fileID: 2716459193614891142}
+  - <Transform>k__BackingField: {fileID: 948405438201742482}
+    <Collider>k__BackingField: {fileID: 4795950753765878369}
+  _rearWheels:
+  - <Transform>k__BackingField: {fileID: 9188640840458259854}
+    <Collider>k__BackingField: {fileID: 3145262460232535540}
+  - <Transform>k__BackingField: {fileID: 28636839611146925}
+    <Collider>k__BackingField: {fileID: 1057494946909100755}
   <CreateControls>k__BackingField: 1
 --- !u!114 &649424556
 MonoBehaviour:
