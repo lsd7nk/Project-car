@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Finish
   m_EditorClassIdentifier: 
   _name: Finish
-  _description: Driving a circle, you increase the number of laps completed (maximum
+  _description: Driving a lap, you increase the number of laps completed (maximum
     10), for every 10 laps completed, you reset the number of falls and get a reward

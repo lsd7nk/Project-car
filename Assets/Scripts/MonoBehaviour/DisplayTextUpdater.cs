@@ -1,20 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
+[RequireComponent(typeof(TextMeshProUGUI))]
 public sealed class DisplayTextUpdater : MonoBehaviour
 {
-    private Text _textField;
+    private TextMeshProUGUI _textField;
 
     public void Initialize(string value)
     {
-        _textField = GetComponent<Text>();
+        Initialize();
         SetText(value);
     }
 
-    public void Initialize()
-    {
-        _textField = GetComponent<Text>();
-    }
+    public void Initialize() => _textField = GetComponent<TextMeshProUGUI>();
 
     public void SetText(string value)
     {

@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEngine.UI;
 using UnityEngine;
 
 public sealed class TrainingObject : MonoBehaviour
@@ -7,7 +6,7 @@ public sealed class TrainingObject : MonoBehaviour
     [SerializeField] private GameObject _trainingCanvas;
     [SerializeField] private TrainingObjConfig _config;
     [SerializeField][Range(3f, 10f)] private float _trainingDisplayTime;
-    private Text _descriptionText;
+    private DisplayTextUpdater _descriptionText;
 
     public bool IsTriggerPassed { get; private set; }
     [field: SerializeField] public bool IsCalledFromAnotherScript { get; private set; }
@@ -41,7 +40,7 @@ public sealed class TrainingObject : MonoBehaviour
     private IEnumerator TrainingDescriptionDisplayRoutine()
     {
         _trainingCanvas.SetActive(true);
-        _descriptionText.text = $"{_config.Name}\n\n{_config.Description}";
+        _descriptionText?.SetText($"{_config.Name}\n\n{_config.Description}");
 
         yield return new WaitForSecondsRealtime(_trainingDisplayTime);
 
@@ -55,6 +54,8 @@ public sealed class TrainingObject : MonoBehaviour
         if (_trainingCanvas == null) { return; }
 
         IsTriggerPassed = false;
-        _descriptionText = _trainingCanvas.GetComponentInChildren<Text>();
+        _descriptionText = _trainingCanvas.GetComponentInChildren<DisplayTextUpdater>();
+
+        _descriptionText?.Initialize();
     }
 }
