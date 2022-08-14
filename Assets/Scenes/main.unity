@@ -601,6 +601,7 @@ MonoBehaviour:
   - {fileID: 2106628333}
   - {fileID: 1579697721}
   _lapTimer: {fileID: 1000084190}
+  _maxLapsAmount: 10
   "<Training\u0421onfig>k__BackingField": {fileID: 1576388742}
 --- !u!114 &497665363
 MonoBehaviour:

@@ -33,6 +33,8 @@ namespace ProjectCar
                 }
             }
 
+            public void ReloadScene() => GameSceneManager.LoadScene(GameSceneManager.CurrentScene);
+
             private IEnumerator LoadSceneRoutine()
             {
                 if (_delay > 0)

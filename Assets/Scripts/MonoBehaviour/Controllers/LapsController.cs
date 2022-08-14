@@ -11,11 +11,11 @@ namespace ProjectCar
             [SerializeField] private DisplayTextUpdater _lapsTextUpdater;
             [SerializeField] private CheckPoint[] _checkPoints;
             [SerializeField] private LapTimer _lapTimer;
+            [SerializeField][Range(1, 10)] private int _maxLapsAmount;
             private LapsInteractor _lapsInteractor;
             private FallsInteractor _fallsInteractor;
             private BankInteractor _bankInteractor;
             private int _checkPointsCompleted;
-            private const int _maxLapsAmount = 10;
 
             [field: SerializeField] public TrainingObject Training—onfig { get; private set; }
 
@@ -73,7 +73,7 @@ namespace ProjectCar
                 {
                     _lapsInteractor.ResetLapsAmount();
                     _fallsInteractor.ResetFallsAmount();
-                    _bankInteractor.AddCoins(_maxLapsAmount);
+                    _bankInteractor.AddCoins(10);
                 }
                 else
                 {

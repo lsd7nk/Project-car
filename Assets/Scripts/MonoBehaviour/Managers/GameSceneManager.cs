@@ -14,12 +14,12 @@ namespace ProjectCar
             [SerializeField] private Image _progressBar;
             private float _targetFillAmount;
 
-            public bool IsLoadingScene { get; private set; }
-
             public static GameSceneManager Instance { get; private set; }
-            public bool InMenu { get; private set; }
             public PauseManager PauseManager => PauseManager.Instance;
             public bool IsPaused => PauseManager.Instance.IsPaused;
+            public bool InMenu { get; private set; }
+            public bool IsLoadingScene { get; private set; }
+            public string CurrentScene { get; private set; }
 
             public async void LoadScene(string sceneName)
             {
@@ -55,6 +55,7 @@ namespace ProjectCar
                     _loadCanvas.SetActive(false);
 
                     IsLoadingScene = false;
+                    CurrentScene = sceneName;
                 }
             }
 
