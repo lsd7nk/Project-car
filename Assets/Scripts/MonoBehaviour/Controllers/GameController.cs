@@ -1,50 +1,58 @@
 using UnityEngine;
+using ProjectCar.Interactors;
+using ProjectCar.Repositories;
 
-public class GameController : MonoBehaviour
+namespace ProjectCar
 {
-    private InteractorsBase _interactors;
-    private RepositoriesBase _repositories;
-    private CameraFollowTo _cameraFollow;
-
-    public static GameController Instance { get; private set; }
-    public InteractorsBase InteractorsBase => _interactors;
-    [field: SerializeField] public GameObject TrainingCanvas { get; private set; }
-
-    private void Awake()
+    namespace Controllers
     {
-        if (Instance == null) { Instance = this; }
-        else if (Instance == this) { Destroy(gameObject); }
+        public sealed class GameController : MonoBehaviour
+        {
+            private InteractorsBase _interactors;
+            private RepositoriesBase _repositories;
+            private CameraFollowTo _cameraFollow;
 
-        Initialize();
-    }
+            public static GameController Instance { get; private set; }
+            public InteractorsBase InteractorsBase => _interactors;
+            [field: SerializeField] public GameObject TrainingCanvas { get; private set; }
 
-    private void Initialize()
-    {
-        _interactors = new InteractorsBase();
-        _repositories = new RepositoriesBase();
-        _cameraFollow = Camera.main.GetComponent<CameraFollowTo>();
+            private void Awake()
+            {
+                if (Instance == null) { Instance = this; }
+                else if (Instance == this) { Destroy(gameObject); }
 
-        _interactors.Initialize();
-        AddRepositories();
+                Initialize();
+            }
 
-        ComponentsInitialize();
-    }
+            private void Initialize()
+            {
+                _interactors = new InteractorsBase();
+                _repositories = new RepositoriesBase();
+                _cameraFollow = Camera.main.GetComponent<CameraFollowTo>();
 
-    private void AddRepositories()
-    {
-        _repositories.AddRepository<BankRepository>(_interactors.GetInteractor<BankInteractor>());
-        _repositories.AddRepository<FallsRepository>(_interactors.GetInteractor<FallsInteractor>());
-    }
+                _interactors.Initialize();
+                AddRepositories();
 
-    private void ComponentsInitialize()
-    {
-        CoinsController coinsController = GetComponent<CoinsController>();
-        LapsController lapsController = GetComponent<LapsController>();
-        FallsController fallsController = GetComponent<FallsController>();
+                ComponentsInitialize();
+            }
 
-        coinsController?.Initialize();
-        lapsController?.Initialize();
-        fallsController?.Initialize();
-        _cameraFollow?.Initialize();
+            private void AddRepositories()
+            {
+                _repositories.AddRepository<BankRepository>(_interactors.GetInteractor<BankInteractor>());
+                _repositories.AddRepository<FallsRepository>(_interactors.GetInteractor<FallsInteractor>());
+            }
+
+            private void ComponentsInitialize()
+            {
+                CoinsController coinsController = GetComponent<CoinsController>();
+                LapsController lapsController = GetComponent<LapsController>();
+                FallsController fallsController = GetComponent<FallsController>();
+
+                coinsController?.Initialize();
+                lapsController?.Initialize();
+                fallsController?.Initialize();
+                _cameraFollow?.Initialize();
+            }
+        }
     }
 }
