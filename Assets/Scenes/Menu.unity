@@ -2579,7 +2579,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.6.4
+  m_text: 0.7.1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 43716c65a2b1e9149a2a5231c67a6762, type: 2}
   m_sharedMaterial: {fileID: -4996644111281494046, guid: 43716c65a2b1e9149a2a5231c67a6762,
@@ -6798,6 +6798,14 @@ PrefabInstance:
       propertyPath: _frontWheels.Array.data[1]._transform
       value: 
       objectReference: {fileID: 1948262794}
+    - target: {fileID: 18473933, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: m_MotionVectors
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 18473933, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: m_Parameters.alignment
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1657049198675759872, guid: 133308cdb8794744caaef026bde9e1f0,
         type: 3}
       propertyPath: m_IsActive
@@ -6866,6 +6874,16 @@ PrefabInstance:
     - target: {fileID: 3311311803080157842, guid: 133308cdb8794744caaef026bde9e1f0,
         type: 3}
       propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3489131820663022422, guid: 133308cdb8794744caaef026bde9e1f0,
+        type: 3}
+      propertyPath: m_MotionVectors
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3489131820663022422, guid: 133308cdb8794744caaef026bde9e1f0,
+        type: 3}
+      propertyPath: m_Parameters.alignment
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:

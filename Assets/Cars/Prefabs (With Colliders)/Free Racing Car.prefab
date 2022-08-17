@@ -552,8 +552,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.9, y: 0.76, z: 4.4838953}
-  m_Center: {x: 0.02759999, y: 0.6, z: -0.14203274}
+  m_Size: {x: 1.9, y: 0.7, z: 4.4838953}
+  m_Center: {x: 0.02759999, y: 0.66, z: -0.14203274}
 --- !u!65 &1840775793
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1147,6 +1147,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615058074345974287, guid: 5151ce63e728cc44699d7769b1f0de94,
         type: 3}
+      propertyPath: m_MotionVectors
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615058074345974287, guid: 5151ce63e728cc44699d7769b1f0de94,
+        type: 3}
+      propertyPath: m_Parameters.alignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615058074345974287, guid: 5151ce63e728cc44699d7769b1f0de94,
+        type: 3}
       propertyPath: m_Parameters.textureMode
       value: 0
       objectReference: {fileID: 0}
@@ -1427,6 +1437,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615058074345974287, guid: 5151ce63e728cc44699d7769b1f0de94,
+        type: 3}
+      propertyPath: m_MotionVectors
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615058074345974287, guid: 5151ce63e728cc44699d7769b1f0de94,
+        type: 3}
+      propertyPath: m_Parameters.alignment
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4615058074345974287, guid: 5151ce63e728cc44699d7769b1f0de94,
         type: 3}
