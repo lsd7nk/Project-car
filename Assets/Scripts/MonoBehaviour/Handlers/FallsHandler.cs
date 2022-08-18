@@ -34,6 +34,10 @@ namespace ProjectCar
                         StartCoroutine(HandleFall(other.transform.parent.gameObject));
                     }
                 }
+                else
+                {
+                    other.gameObject.SetActive(false);
+                }
             }
 
             private IEnumerator HandleFall(GameObject obj)
