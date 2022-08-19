@@ -1,22 +1,30 @@
 using UnityEngine;
+using ProjectCar.UI;
+using ProjectCar.Interactors;
 
-public class CoinsController : Controller
+namespace ProjectCar
 {
-    [SerializeField] private DisplayTextUpdater _coinsTextUpdater;
-    [SerializeField] private CoinSpawner _spawner;
-    private BankInteractor _bankInteractor;
-
-    public void Initialize()
+    namespace Controllers
     {
-        _bankInteractor = base.Initialize<BankInteractor>();
-        _coinsTextUpdater.Initialize($"{_bankInteractor.CoinsAmount}$");
-        _spawner.Initialize(() => { _bankInteractor?.AddCoins(1); });
+        public sealed class CoinsController : Controller
+        {
+            [SerializeField] private DisplayTextUpdater _coinsTextUpdater;
+            [SerializeField] private CoinSpawner _spawner;
+            private BankInteractor _bankInteractor;
 
-        _bankInteractor.OnChangeCoinsAmountEvent += SetCoinsAmountOnDisplay;
-    }
+            public void Initialize()
+            {
+                _bankInteractor = base.Initialize<BankInteractor>();
+                _coinsTextUpdater.Initialize($"{_bankInteractor.CoinsAmount}$");
+                _spawner.Initialize(() => { _bankInteractor?.AddCoins(1); });
 
-    private void SetCoinsAmountOnDisplay()
-    {
-        _coinsTextUpdater?.SetText($"{_bankInteractor.CoinsAmount}$");
+                _bankInteractor.OnChangeCoinsAmountEvent += SetCoinsAmountOnDisplay;
+            }
+
+            private void SetCoinsAmountOnDisplay()
+            {
+                _coinsTextUpdater?.SetText($"{_bankInteractor.CoinsAmount}$");
+            }
+        }
     }
 }

@@ -1,83 +1,89 @@
 using UnityEngine;
+using ProjectCar.UI;
+using ProjectCar.Interactors;
 
-public class LapsController : Controller
+namespace ProjectCar
 {
-    [SerializeField] private DisplayTextUpdater _lapsTextUpdater;
-    [SerializeField] private CheckPoint[] _checkPoints;
-    [SerializeField] private LapTimer _lapTimer;
-    private LapsInteractor _lapsInteractor;
-    private FallsInteractor _fallsInteractor;
-    private BankInteractor _bankInteractor;
-    private int _checkPointsCompleted;
-    private const int _maxLapsAmount = 10;
-
-    [field: SerializeField] public TrainingObject Training—onfig { get; private set; }
-
-    public void Initialize()
+    namespace Controllers
     {
-        InitializeLapsInteractor();
-        _lapsTextUpdater.Initialize();
-        _lapTimer.Initialize();
-
-        foreach (CheckPoint point in _checkPoints)
+        public sealed class LapsController : Controller
         {
-            point.OnCheckPointComplete.AddListener(HandleCurrentCheckPoint);
-        }
-    }
+            [SerializeField] private DisplayTextUpdater _lapsTextUpdater;
+            [SerializeField] private CheckPoint[] _checkPoints;
+            [SerializeField] private LapTimer _lapTimer;
+            private LapsInteractor _lapsInteractor;
+            private FallsInteractor _fallsInteractor;
+            private BankInteractor _bankInteractor;
+            private int _checkPointsCompleted;
+            private const int _maxLapsAmount = 10;
 
-    private void InitializeLapsInteractor()
-    {
-        _lapsInteractor = base.Initialize<LapsInteractor>();
-        _fallsInteractor = base.Initialize<FallsInteractor>();
-        _bankInteractor = base.Initialize<BankInteractor>();
+            [field: SerializeField] public TrainingObject Training—onfig { get; private set; }
 
-        _lapsInteractor.OnChangeLapsAmountEvent += (int lapsAmount) =>
-        {
-            _lapsTextUpdater?.SetText($"Laps completed: {lapsAmount}");
-        };
-        _lapsInteractor.OnResetLapsAmountEvent += (int lapsAmount) =>
-        {
-            _checkPointsCompleted = 1;
-        };
-    }
-
-    private void HandleCurrentCheckPoint(CheckPoint point)
-    {
-        if (point.Index == 0 && _checkPointsCompleted == _checkPoints.Length)
-        {
-            ChangeLapsAmount();
-            _lapTimer?.ResetTime();
-        }
-        else
-        {
-            if (point.Index != _checkPointsCompleted) { return; }
-
-            if (++_checkPointsCompleted == _checkPoints.Length + 1)
+            public void Initialize()
             {
-                ChangeLapsAmount();
-            }
-        }
-    }
+                InitializeLapsInteractor();
+                _lapsTextUpdater.Initialize();
+                _lapTimer.Initialize();
 
-    private void ChangeLapsAmount()
-    {
-        _checkPointsCompleted = 1;
-
-        if (_lapsInteractor.LapsCompletedAmount >= _maxLapsAmount)
-        {
-            _lapsInteractor.ResetLapsAmount();
-            _fallsInteractor.ResetFallsAmount();
-            _bankInteractor.AddCoins(_maxLapsAmount);
-        }
-        else
-        {
-            _lapsInteractor?.IncreaseLapsAmount();
-
-            if (Training—onfig != null)
-            {
-                if (Training—onfig.IsCalledFromAnotherScript && !Training—onfig.IsTriggerPassed)
+                foreach (CheckPoint point in _checkPoints)
                 {
-                    Training—onfig.TrainingDescriptionDisplay();
+                    point.OnCheckPointComplete.AddListener(HandleCurrentCheckPoint);
+                }
+            }
+
+            private void InitializeLapsInteractor()
+            {
+                _lapsInteractor = base.Initialize<LapsInteractor>();
+                _fallsInteractor = base.Initialize<FallsInteractor>();
+                _bankInteractor = base.Initialize<BankInteractor>();
+
+                _lapsInteractor.OnChangeLapsAmountEvent += (int lapsAmount) =>
+                {
+                    _lapsTextUpdater?.SetText($"Laps completed: {lapsAmount}");
+                };
+                _lapsInteractor.OnResetLapsAmountEvent += () => _checkPointsCompleted = 1;
+                _lapsInteractor.OnFallEvent += () => _checkPointsCompleted = 1;
+            }
+
+            private void HandleCurrentCheckPoint(CheckPoint point)
+            {
+                if (point.Index == 0 && _checkPointsCompleted == _checkPoints.Length)
+                {
+                    ChangeLapsAmount();
+                    _lapTimer?.ResetTime();
+                }
+                else
+                {
+                    if (point.Index != _checkPointsCompleted) { return; }
+
+                    if (++_checkPointsCompleted == _checkPoints.Length + 1)
+                    {
+                        ChangeLapsAmount();
+                    }
+                }
+            }
+
+            private void ChangeLapsAmount()
+            {
+                _checkPointsCompleted = 1;
+
+                if (_lapsInteractor.LapsCompletedAmount >= _maxLapsAmount)
+                {
+                    _lapsInteractor.ResetLapsAmount();
+                    _fallsInteractor.ResetFallsAmount();
+                    _bankInteractor.AddCoins(10);
+                }
+                else
+                {
+                    _lapsInteractor?.IncreaseLapsAmount();
+
+                    if (Training—onfig != null)
+                    {
+                        if (Training—onfig.IsCalledFromAnotherScript && !Training—onfig.IsTriggerPassed)
+                        {
+                            Training—onfig.TrainingDescriptionDisplay();
+                        }
+                    }
                 }
             }
         }

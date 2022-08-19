@@ -1,9 +1,16 @@
 using UnityEngine;
+using ProjectCar.Interactors;
 
-public class Controller : MonoBehaviour
+namespace ProjectCar
 {
-    protected T Initialize<T>() where T : Interactor
+    namespace Controllers
     {
-        return GameController.Instance.InteractorsBase.GetInteractor<T>();
+        public class Controller : MonoBehaviour
+        {
+            private protected T Initialize<T>() where T : Interactor
+            {
+                return GameController.Instance.InteractorsBase.GetInteractor<T>();
+            }
+        }
     }
 }
