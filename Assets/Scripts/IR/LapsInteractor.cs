@@ -1,3 +1,4 @@
+using System;
 using ProjectCar.Repositories;
 
 namespace ProjectCar
@@ -9,7 +10,8 @@ namespace ProjectCar
             public override Repository Repository => null;
             public delegate void OnChangeLapsAmount(int lapsAmount = 0);
             public OnChangeLapsAmount OnChangeLapsAmountEvent;
-            public OnChangeLapsAmount OnResetLapsAmountEvent;
+            public Action OnResetLapsAmountEvent;
+            public Action OnFallEvent;
 
             public int LapsCompletedAmount { get; private set; }
 

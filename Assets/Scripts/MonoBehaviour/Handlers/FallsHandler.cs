@@ -36,7 +36,23 @@ namespace ProjectCar
                 }
                 else
                 {
-                    other.gameObject.SetActive(false);
+                    if (other.CompareTag("Chain"))
+                    {
+                        StartCoroutine(TurnOffObjectRoutine(other.transform.parent.gameObject));
+                    }
+                    else
+                    {
+                        StartCoroutine(TurnOffObjectRoutine(other.gameObject));
+                    }
+                }
+
+
+                static IEnumerator TurnOffObjectRoutine(GameObject obj)
+                {
+                    yield return new WaitForSecondsRealtime(2f);
+                    obj.SetActive(false);
+
+                    yield break;
                 }
             }
 

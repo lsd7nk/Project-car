@@ -44,14 +44,15 @@ namespace ProjectCar
                 if (_interactor.FallsAmount >= _maxFallsAmount)
                 {
                     _interactor?.ResetFallsAmount();
+                    _lapsInteractor?.ResetLapsAmount();
                 }
                 else
                 {
                     _interactor?.FallsAmountIncrease();
+                    _lapsInteractor.OnFallEvent?.Invoke();
                 }
 
                 _bankInteractor?.SubsractCoins(penalty);
-                _lapsInteractor?.ResetLapsAmount();
                 _lapTimer?.ResetTime();
             }
 

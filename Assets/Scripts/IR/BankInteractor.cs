@@ -27,12 +27,17 @@ namespace ProjectCar
             public void SubsractCoins(int value)
             {
                 if (value < 0) { return; }
-
-                if ((CoinsAmount - value) >= 0)
+                
+                if ((CoinsAmount - value) < 0)
+                {
+                    _repository.SetCoins(0);
+                }
+                else
                 {
                     _repository.SetCoins(CoinsAmount - value);
-                    OnChangeCoinsAmountEvent?.Invoke();
                 }
+
+                OnChangeCoinsAmountEvent?.Invoke();
             }
         }
     }

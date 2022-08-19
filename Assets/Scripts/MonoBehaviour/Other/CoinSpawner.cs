@@ -57,19 +57,19 @@ namespace ProjectCar
         {
             if (_coinsPoints == null || _pool.HasActiveObject()) { return; }
 
-            int coinsAmount = Random.Range(1, lapsAmount);
+            int coinsAmount = Random.Range(5, 10);
             _pool.TurnOffObjects();
 
             foreach (Transform point in _coinsPoints)
             {
-                if (coinsAmount-- <= 0) { break; }
-
                 if (Random.Range(0, 100) % 2 == 0)
                 {
                     Coin coin = _pool.GetObject(true);
 
                     coin.transform.position = point.position;
                 }
+
+                if (--coinsAmount <= 0) { break; }
             }
         }
     }
