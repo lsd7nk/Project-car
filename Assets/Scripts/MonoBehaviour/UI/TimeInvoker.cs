@@ -11,13 +11,17 @@ namespace ProjectCar
             [HideInInspector] public event Action OnSecondTimeUpdateEvent;
             private float _oneSecondTime;
 
+            public PauseManager PauseManager => PauseManager.Instance;
             public bool IsPaused => PauseManager.Instance.IsPaused;
 
             public void ResetSecondsAmount() => _oneSecondTime = 0f;
 
             private void Update()
             {
-                if (IsPaused) { return; }
+                if (PauseManager != null)
+                {
+                    if (IsPaused) { return; }
+                }
 
                 CountSecond();
             }

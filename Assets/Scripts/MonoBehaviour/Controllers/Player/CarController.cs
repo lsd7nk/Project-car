@@ -41,6 +41,7 @@ namespace ProjectCar
             private bool _isDecelerating;
             private bool _isDrifting;
             private bool _isTireSkidded;
+            private bool _isChangedSpeed;
 
             private float _carSpeed;
             private float _localVelocityX;
@@ -77,16 +78,26 @@ namespace ProjectCar
 
             public void ChangeMoveSpeed(bool isBoost, float termMaxForwardSpeed, float termAccelerationMultiplier)
             {
-                _maxForwardSpeed += termMaxForwardSpeed;
-                _accelerationMultiplier += termAccelerationMultiplier;
-                OnChangeMoveSpeedEvent?.Invoke(isBoost);
+                if (!_isChangedSpeed)
+                {
+                    _isChangedSpeed = true;
+
+                    _maxForwardSpeed += termMaxForwardSpeed;
+                    _accelerationMultiplier += termAccelerationMultiplier;
+                    OnChangeMoveSpeedEvent?.Invoke(isBoost);
+                }
             }
 
             public void ResetMoveSpeed()
             {
-                _maxForwardSpeed = 120f;
-                _accelerationMultiplier = 5f;
-                OnResetMoveSpeedEvent?.Invoke();
+                if (_isChangedSpeed)
+                {
+                    _maxForwardSpeed = 120f;
+                    _accelerationMultiplier = 5f;
+                    OnResetMoveSpeedEvent?.Invoke();
+
+                    _isChangedSpeed = false;
+                }
             }
 
             public void ApplyBreaking(float currentBreakForce)
@@ -106,7 +117,10 @@ namespace ProjectCar
                 }
                 _rigidbody = GetComponent<Rigidbody>();
 
-                PauseManager.RegisterHandler(this);
+                if (PauseManager != null)
+                {
+                    PauseManager.RegisterHandler(this);
+                }
             }
 
             private void Start()
@@ -135,7 +149,10 @@ namespace ProjectCar
 
             private void FixedUpdate()
             {
-                if (IsPaused) { return; }
+                if (PauseManager != null)
+                {
+                    if (IsPaused) { return; }
+                }
 
                 GetInput();
                 CalculateCarStates();

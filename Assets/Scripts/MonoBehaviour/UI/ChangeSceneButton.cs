@@ -9,7 +9,7 @@ namespace ProjectCar
         public sealed class ChangeSceneButton : MonoBehaviour
         {
             [SerializeField] private string _sceneName;
-            private const float _delay = 4f;
+            private const float _delay = 3f;
 
             public GameSceneManager GameSceneManager => GameSceneManager.Instance;
 
@@ -29,9 +29,11 @@ namespace ProjectCar
 
                 if (!GameSceneManager.IsLoadingScene)
                 {
-                    LoadScene();
+                    GameSceneManager.LoadScene(_sceneName);
                 }
             }
+
+            public void LoadPreviousScene() => GameSceneManager.LoadScene(GameSceneManager.PreviousScene);
 
             public void ReloadScene() => GameSceneManager.LoadScene(GameSceneManager.CurrentScene);
 
@@ -45,8 +47,6 @@ namespace ProjectCar
                 GameSceneManager.LoadScene(_sceneName);
                 yield break;
             }
-
-            private void LoadScene() => GameSceneManager.LoadScene(_sceneName);
         }
     }
 }

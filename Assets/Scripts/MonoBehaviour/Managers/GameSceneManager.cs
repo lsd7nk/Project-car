@@ -19,13 +19,15 @@ namespace ProjectCar
             public bool IsPaused => PauseManager.Instance.IsPaused;
             public bool InMenu { get; private set; }
             public bool IsLoadingScene { get; private set; }
-            public string CurrentScene { get; private set; }
+            public string CurrentScene { get; private set; } = "Menu";
+            public string PreviousScene { get; private set; } = "Menu";
 
             public async void LoadScene(string sceneName)
             {
                 if (!IsLoadingScene)
                 {
                     IsLoadingScene = true;
+                    PreviousScene = CurrentScene;
 
                     if (IsPaused)
                     {
@@ -49,7 +51,15 @@ namespace ProjectCar
                     await Task.Delay(1000);  // clear this
 
                     scene.allowSceneActivation = true;
-                    InMenu = (sceneName == "Menu") ? true : false;
+
+                    if (string.Equals(sceneName, "Menu") || string.Equals(sceneName, "Shop"))
+                    {
+                        InMenu = true;
+                    }
+                    else
+                    {
+                        InMenu = false;
+                    }
 
                     await Task.Delay(100);
                     _loadCanvas.SetActive(false);

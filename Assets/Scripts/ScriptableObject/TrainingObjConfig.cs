@@ -4,7 +4,7 @@ namespace ProjectCar
 {
     namespace Configs
     {
-        [CreateAssetMenu(fileName = "Training obj", menuName = "Config/Training object", order = 52)]
+        [CreateAssetMenu(fileName = "Training object", menuName = "Config/Training object", order = 52)]
         public sealed class TrainingObjConfig : ScriptableObject
         {
             [SerializeField] private string _name;

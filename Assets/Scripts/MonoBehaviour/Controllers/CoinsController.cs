@@ -12,11 +12,22 @@ namespace ProjectCar
             [SerializeField] private CoinSpawner _spawner;
             private BankInteractor _bankInteractor;
 
+            public BankInteractor BankInteractor => _bankInteractor;
+
             public void Initialize()
             {
                 _bankInteractor = base.Initialize<BankInteractor>();
                 _coinsTextUpdater.Initialize($"{_bankInteractor.CoinsAmount}$");
-                _spawner.Initialize(() => { _bankInteractor?.AddCoins(1); });
+                _spawner?.Initialize(() => { _bankInteractor?.AddCoins(1); });
+
+                _bankInteractor.OnChangeCoinsAmountEvent += SetCoinsAmountOnDisplay;
+            }
+
+            public void Initialize(BankInteractor interactor)
+            {
+                _bankInteractor = interactor;
+                _coinsTextUpdater.Initialize($"{_bankInteractor.CoinsAmount}$");
+                _spawner?.Initialize(() => { _bankInteractor?.AddCoins(1); });
 
                 _bankInteractor.OnChangeCoinsAmountEvent += SetCoinsAmountOnDisplay;
             }

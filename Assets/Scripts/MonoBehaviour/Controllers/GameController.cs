@@ -10,7 +10,6 @@ namespace ProjectCar
         {
             private InteractorsBase _interactors;
             private RepositoriesBase _repositories;
-            private CameraFollowTo _cameraFollow;
 
             public static GameController Instance { get; private set; }
             public InteractorsBase InteractorsBase => _interactors;
@@ -28,7 +27,6 @@ namespace ProjectCar
             {
                 _interactors = new InteractorsBase();
                 _repositories = new RepositoriesBase();
-                _cameraFollow = Camera.main.GetComponent<CameraFollowTo>();
 
                 _interactors.Initialize();
                 AddRepositories();
@@ -51,7 +49,6 @@ namespace ProjectCar
                 coinsController?.Initialize();
                 lapsController?.Initialize();
                 fallsController?.Initialize();
-                _cameraFollow?.Initialize();
             }
         }
     }

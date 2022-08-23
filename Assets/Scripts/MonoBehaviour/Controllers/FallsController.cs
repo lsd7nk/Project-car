@@ -58,16 +58,7 @@ namespace ProjectCar
 
             private void SetFallsText() => _text.SetText($"Falls amount: {_interactor.FallsAmount}");
 
-            private int CalculatePenaltyForFall()
-            {
-                int penalty, completedLapsAmount, fallsAmount;
-
-                penalty = (int)Mathf.Pow(_interactor.FallsAmount, 2);
-                completedLapsAmount = _lapsInteractor.LapsCompletedAmount;
-                fallsAmount = _interactor.FallsAmount;
-
-                return (completedLapsAmount > fallsAmount) ? _maxFallsAmount : penalty;
-            }
+            private int CalculatePenaltyForFall() => (int) Mathf.Pow(_interactor.FallsAmount, 2);
         }
     }
 }
