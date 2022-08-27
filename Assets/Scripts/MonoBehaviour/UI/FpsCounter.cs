@@ -16,15 +16,14 @@ namespace ProjectCar
                 StartCoroutine(FpsDisplayUpdateRoutine());
             }
 
-            private void Update()
-            {
-                FPS = (int)(1f / Time.unscaledDeltaTime);
-            }
+            private void Update() => FPS = (int) (1f / Time.unscaledDeltaTime);
 
             private IEnumerator FpsDisplayUpdateRoutine()
             {
                 yield return new WaitForSeconds(0.2f);
+
                 _fpsText?.SetText($"{FPS} fps");
+
                 yield return StartCoroutine(FpsDisplayUpdateRoutine());
                 yield break;
             }

@@ -39,7 +39,7 @@ namespace ProjectCar
             private readonly string[] _colorItems = new string[4] { "Blue", "Gray", "Red", "Yellow" };
 
             private ShopItemInteractor _interactor;
-            private const int _colorPrice = 50;
+            private const int _colorPrice = 35;
 
             public void BuyMaterial(Material material)
             {

@@ -71,7 +71,7 @@ namespace ProjectCar
         {
             _pool = new List<T>();
 
-            for (int i = 0; i < objectAmount; i++)
+            for (int i = 0; i < objectAmount; ++i)
             {
                 CreateObject();
             }

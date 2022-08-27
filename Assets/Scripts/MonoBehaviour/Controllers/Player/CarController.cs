@@ -429,7 +429,7 @@ namespace ProjectCar
 
             private void TrottleOff()
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; ++i)
                 {
                     _frontWheels[i].Collider.motorTorque = 0f;
                     _rearWheels[i].Collider.motorTorque = 0f;
@@ -440,7 +440,7 @@ namespace ProjectCar
             {
                 float steeringAngle = _steeringAxis * _config.MaxSteeringAngle;
 
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; ++i)
                 {
                     _frontWheels[i].Collider.steerAngle = Mathf.Lerp(_frontWheels[i].Collider.steerAngle, steeringAngle, _config.SteeringSpeed);
                 }
@@ -465,7 +465,7 @@ namespace ProjectCar
 
             private void UpdateWheels()
             {
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 2; ++i)
                 {
                     UpdateSingleWheel(_frontWheels[i].Collider, _frontWheels[i].Transform);
                     UpdateSingleWheel(_rearWheels[i].Collider, _rearWheels[i].Transform);

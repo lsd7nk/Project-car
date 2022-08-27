@@ -19,7 +19,7 @@ namespace ProjectCar
             public bool IsPaused => PauseManager.Instance.IsPaused;
             public bool InMenu { get; private set; }
             public bool IsLoadingScene { get; private set; }
-            public string CurrentScene { get; private set; } = "Menu";
+            public string CurrentScene => SceneManager.GetActiveScene().name;
             public string PreviousScene { get; private set; } = "Menu";
 
             public async void LoadScene(string sceneName)
@@ -65,7 +65,6 @@ namespace ProjectCar
                     _loadCanvas.SetActive(false);
 
                     IsLoadingScene = false;
-                    CurrentScene = sceneName;
                 }
             }
 
