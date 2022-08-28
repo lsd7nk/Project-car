@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Shop
+  m_text: Store
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 43716c65a2b1e9149a2a5231c67a6762, type: 2}
   m_sharedMaterial: {fileID: -4996644111281494046, guid: 43716c65a2b1e9149a2a5231c67a6762,
@@ -2734,7 +2734,7 @@ GameObject:
   - component: {fileID: 807419779}
   - component: {fileID: 807419778}
   m_Layer: 5
-  m_Name: ShopButton
+  m_Name: StoreButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4707,7 +4707,7 @@ GameObject:
   - component: {fileID: 1167510316}
   - component: {fileID: 1167510311}
   m_Layer: 5
-  m_Name: ShopButton
+  m_Name: StoreButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6606,9 +6606,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Shop
-
-'
+  m_text: Store
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 43716c65a2b1e9149a2a5231c67a6762, type: 2}
   m_sharedMaterial: {fileID: -4996644111281494046, guid: 43716c65a2b1e9149a2a5231c67a6762,

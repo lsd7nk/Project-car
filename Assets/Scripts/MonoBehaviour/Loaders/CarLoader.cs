@@ -12,13 +12,18 @@ namespace ProjectCar
             private GameObject _loadedObject;
 
             public GameObject InstantiatedObject { get; private set; }
-            public CarInteractor Interactor {get; private set; }
-            private string _path => _pathToFolder + Interactor.CarName;
+            public GameObject SpoilerObject { get; private set; }
+            public CarInteractor CarInteractor {get; private set; }
+            public SpoilerInteractor SpoilerInteractor { get; private set; }
+            private string _path => _pathToFolder + CarInteractor.CarName;
 
             public void Initialize()
             {
-                Interactor = new CarInteractor();
-                Interactor.Initialize();
+                CarInteractor = new CarInteractor();
+                SpoilerInteractor = new SpoilerInteractor();
+
+                SpoilerInteractor.Initialize();
+                CarInteractor.Initialize();
             }
 
             public void Load()
@@ -33,6 +38,35 @@ namespace ProjectCar
                 if (_loadedObject == null || _spawnPoint == null) { return; }
 
                 InstantiatedObject = Instantiate(_loadedObject, _spawnPoint.position, _spawnPoint.rotation);
+                SpoilerObject = InstantiatedObject.transform.GetChild(1).gameObject;
+
+                SetSpoiler();
+            }
+
+            public void TurnOnSpoiler()
+            {
+                SpoilerInteractor.EquipSpoiler();
+                SpoilerObject.SetActive(true);
+            }
+
+            public void TurnOffSpoiler()
+            {
+                SpoilerInteractor.UnequipSpoiler();
+                SpoilerObject.SetActive(false);
+            }
+
+            private void SetSpoiler()
+            {
+                if (SpoilerObject == null) { return; }
+
+                if (SpoilerInteractor.CurrentState == "Equipped")
+                {
+                    TurnOnSpoiler();
+                }
+                else
+                {
+                    TurnOffSpoiler();
+                }
             }
         }
     }

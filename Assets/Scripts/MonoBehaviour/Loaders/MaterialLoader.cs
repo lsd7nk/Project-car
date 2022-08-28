@@ -13,7 +13,7 @@ namespace ProjectCar
             private MeshRenderer _meshRenderer;
             private CarMaterialInteractor _interactor;
 
-            private string CarName => _carLoader.Interactor.CarName;
+            private string CarName => _carLoader.CarInteractor.CarName;
             private string _path => _pathToFolder + CarName +  "/" + _interactor.MaterialName;
 
             public void Initialize()
