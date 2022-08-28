@@ -24,15 +24,20 @@ namespace ProjectCar
 
             [Header("Characteristics")]
             [SerializeField] private CarConfig _config;
-            private float _maxForwardSpeed;
-            private float _accelerationMultiplier;
 
             [Header("Wheels")]
             [SerializeField] private Wheel[] _frontWheels = new Wheel[2];
             [SerializeField] private Wheel[] _rearWheels = new Wheel[2];
 
+            [SerializeField] private float _groundOffset;
+            [SerializeField] private float _groundedRadius;
+            [SerializeField] private LayerMask _groundLayer;
+            
             private CarControls _controls;
             private Rigidbody _rigidbody;
+
+            private float _maxForwardSpeed;
+            private float _accelerationMultiplier;
 
             private float _horizontalInput;
             private float _verticalInput;
@@ -65,6 +70,7 @@ namespace ProjectCar
 
             [field: SerializeField] public bool CreateControls { get; private set; }
             public bool IsPaused => PauseManager.Instance.IsPaused;
+            public bool isGrounded { get; private set; }
             public PauseManager PauseManager => PauseManager.Instance;
 
             public void SetPause(bool isPaused) => Time.timeScale = (isPaused) ? 0f : 1f;
@@ -154,10 +160,19 @@ namespace ProjectCar
                     if (IsPaused) { return; }
                 }
 
+                GroundCheck();
                 GetInput();
                 CalculateCarStates();
                 HandleMoveCar();
                 UpdateWheels();
+            }
+
+            private void GroundCheck()
+            {
+                Vector3 spherePosition;
+
+                spherePosition = new Vector3(transform.position.x, transform.position.y - _groundOffset, transform.position.z);
+                isGrounded = Physics.CheckSphere(spherePosition, _groundedRadius, _groundLayer, QueryTriggerInteraction.Ignore);
             }
 
             private void GetInput()

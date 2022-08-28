@@ -17,7 +17,7 @@ namespace ProjectCar
             public static GameSceneManager Instance { get; private set; }
             public PauseManager PauseManager => PauseManager.Instance;
             public bool IsPaused => PauseManager.Instance.IsPaused;
-            public bool InMenu { get; private set; }
+            public bool InMenu { get; private set; } = true;
             public bool IsLoadingScene { get; private set; }
             public string CurrentScene => SceneManager.GetActiveScene().name;
             public string PreviousScene { get; private set; } = "Menu";

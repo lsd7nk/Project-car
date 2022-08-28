@@ -623,6 +623,11 @@ MonoBehaviour:
     <Collider>k__BackingField: {fileID: 3145262460232535540}
   - <Transform>k__BackingField: {fileID: 28636839611146925}
     <Collider>k__BackingField: {fileID: 1057494946909100755}
+  _groundOffset: -0.145
+  _groundedRadius: 0.2
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
   <CreateControls>k__BackingField: 1
 --- !u!114 &649424556
 MonoBehaviour:
