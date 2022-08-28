@@ -29,7 +29,7 @@ namespace ProjectCar
                     if (string.Equals(_keys[i], key))
                     {
                         _itemsStates[i] = _unlockedState;
-                        PlayerPrefs.SetString(key, _unlockedState);
+                        Save(key, _unlockedState);
                     }
                 }
             }

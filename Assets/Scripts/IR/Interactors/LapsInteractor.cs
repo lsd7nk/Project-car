@@ -24,11 +24,7 @@ namespace ProjectCar
                 OnChangeLapsAmountEvent?.Invoke(LapsCompletedAmount);
             }
 
-            public void IncreaseLapsAmount()
-            {
-                LapsCompletedAmount++;
-                OnChangeLapsAmountEvent?.Invoke(LapsCompletedAmount);
-            }
+            public void IncreaseLapsAmount() => OnChangeLapsAmountEvent?.Invoke(++LapsCompletedAmount);
         }
     }
 }

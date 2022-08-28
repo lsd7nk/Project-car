@@ -20,6 +20,8 @@ namespace ProjectCar
             private bool _isTurnOffTrail;
             private float _defaultTrailTime;
 
+            public bool IsGrounded => _carController.isGrounded;
+
             private void Awake()
             {
                 _carController = GetComponent<CarController>();
@@ -109,8 +111,11 @@ namespace ProjectCar
                 {
                     if (isTireSkidded && Mathf.Abs(localVelocityX) > 5f && Mathf.Abs(carSpeed) > 12f)
                     {
-                        _rlTireSkid.emitting = true;
-                        _rrTireSkid.emitting = true;
+                        if (IsGrounded)
+                        {
+                            _rlTireSkid.emitting = true;
+                            _rrTireSkid.emitting = true;
+                        }
                     }
                     else
                     {
