@@ -5,7 +5,7 @@ namespace ProjectCar
     public sealed class CameraFollowTo : MonoBehaviour
     {
         [SerializeField] private Transform _targetTransform;
-        [SerializeField][Range(0.1f, 2f)] private float _lerpSpeed;
+        [SerializeField][Range(0.1f, 3f)] private float _lerpSpeed;
         private Vector3 _offset;
         private const string _targetTag = "Player";
 

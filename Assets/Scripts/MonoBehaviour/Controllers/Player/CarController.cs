@@ -29,6 +29,7 @@ namespace ProjectCar
             [SerializeField] private Wheel[] _frontWheels = new Wheel[2];
             [SerializeField] private Wheel[] _rearWheels = new Wheel[2];
 
+            [Header("Ground")]
             [SerializeField] private float _groundOffset;
             [SerializeField] private float _groundedRadius;
             [SerializeField] private LayerMask _groundLayer;
@@ -68,19 +69,11 @@ namespace ProjectCar
             private WheelFrictionCurve _rrWheelFriction;
             private float _rrWextremumSlip;
 
-            [field: SerializeField] public bool CreateControls { get; private set; }
             public bool IsPaused => PauseManager.Instance.IsPaused;
             public bool isGrounded { get; private set; }
             public PauseManager PauseManager => PauseManager.Instance;
 
             public void SetPause(bool isPaused) => Time.timeScale = (isPaused) ? 0f : 1f;
-
-            public void DriveForward()
-            {
-                if (CreateControls) { return; }
-
-                _verticalInput = 1f;
-            }
 
             public void ChangeMoveSpeed(bool isBoost, float termMaxForwardSpeed, float termAccelerationMultiplier)
             {
@@ -117,10 +110,7 @@ namespace ProjectCar
 
             private void Awake()
             {
-                if (CreateControls)
-                {
-                    _controls = new CarControls();
-                }
+                _controls = new CarControls();
                 _rigidbody = GetComponent<Rigidbody>();
 
                 if (PauseManager != null)
@@ -139,16 +129,12 @@ namespace ProjectCar
 
             private void OnEnable()
             {
-                if (!CreateControls) { return; }
-
                 _controls.Car.Enable();
                 _controls.Car.Break.canceled += _ => RecoverTraction();
             }
 
             private void OnDisable()
             {
-                if (!CreateControls) { return; }
-
                 _controls.Car.Break.canceled -= _ => RecoverTraction();
                 _controls.Car.Disable();
             }
@@ -177,8 +163,6 @@ namespace ProjectCar
 
             private void GetInput()
             {
-                if (!CreateControls) { return; }
-
                 _horizontalInput = _controls.Car.Move.ReadValue<Vector2>().x;
                 _verticalInput = _controls.Car.Move.ReadValue<Vector2>().y;
                 _isBreaking = Convert.ToBoolean(_controls.Car.Break.ReadValue<float>());
