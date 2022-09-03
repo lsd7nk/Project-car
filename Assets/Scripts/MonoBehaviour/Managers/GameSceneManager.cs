@@ -43,12 +43,12 @@ namespace ProjectCar
 
                     do
                     {
-                        await Task.Delay(300);  // clear this
+                        await Task.Delay(300);
                         _targetFillAmount = scene.progress;
 
                     } while (scene.progress < 0.9f);
 
-                    await Task.Delay(1000);  // clear this
+                    await Task.Delay(350);
 
                     scene.allowSceneActivation = true;
 

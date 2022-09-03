@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 5be85288c43246245abf9c33c6e5f491,
+  m_LightingDataAsset: {fileID: 112000000, guid: f53426e5a3aa3fc46b93006b19fb163d,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: d118e451c3d73a3468b4f73cac8c2077,
     type: 2}
@@ -4187,17 +4187,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212541232}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1858016554}
-  m_Father: {fileID: 1955961198}
-  m_RootOrder: 4
+  m_Father: {fileID: 1241823510}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -80, y: -50}
+  m_AnchoredPosition: {x: -220, y: 200}
   m_SizeDelta: {x: 200, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212541234
@@ -4434,6 +4434,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1955961198}
+  - {fileID: 1212541233}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6601,7 +6602,6 @@ RectTransform:
   - {fileID: 1109140981}
   - {fileID: 1112874487}
   - {fileID: 1282113698}
-  - {fileID: 1212541233}
   m_Father: {fileID: 1241823510}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
