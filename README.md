@@ -1,9 +1,5 @@
 # Project Car
 
-![logo](./Build/Image/logo.png)
-
-## Содержание
-
 Poject car - проект, являющийся игрой в жанре "гонки". Игра имеет главное меню, внутриигровой магазин и 3 уровня. Интерфейс интуитивно понятен и не нуждается в особом рассмотрении.
 
 1. Обучающий уровень, рассказывающий об основных аспектах игры.
@@ -15,11 +11,9 @@ Poject car - проект, являющийся игрой в жанре "гон
 - 4 GB RAM
 - AMD Radeon HD 7850 | NVIDIA GeForce GTX 750
 
-Билд находится в архиве `./Build/Project car.zip`
-
 ## Игровой процесс
 
-![gameplay](./Build/Gifs/gameplay.gif)
+![gameplay](./ForReadMe/Gifs/gameplay.gif)
 
 Геймплей игры строится вокруг многократного прохождения уровней, тем самым инкрементируя счетчик завершенных кругов. Падения с трассы инкрементируют счетчик падений.
 
@@ -34,7 +28,7 @@ Poject car - проект, являющийся игрой в жанре "гон
 
 ## Магазин
 
-![store](./Build/Gifs/store.gif)
+![store](./ForReadMe/Gifs/store.gif)
 
 На уровнях расположены коины.  
 Коины - внутриигровая валюта для покупки расцветок автомобиля. Каждый подобранный коин - это +1$.
@@ -46,10 +40,16 @@ Poject car - проект, являющийся игрой в жанре "гон
 
 ## Меню
 
-![menu](./Build/Gifs/menu.gif)
+![menu](./ForReadMe/Gifs/menu.gif)
 
 В меню можно управлять автомобилем.
 
 - С помощью кнопки `PLAY`, можно попасть на экран выбора уровня.
 - Кнопка `STORE` открывает магазин.
 - `EXIT` - выход.
+
+## Ассеты
+
+- [Modular Lowpoly Track Roads FREE](https://assetstore.unity.com/packages/3d/environments/roadways/modular-lowpoly-track-roads-free-205188)
+- [ARCADE: FREE Racing Car](https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085)
+- [Simple Street Props](https://assetstore.unity.com/packages/3d/props/simple-street-props-194706)
