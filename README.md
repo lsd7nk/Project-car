@@ -11,6 +11,8 @@ Poject car - проект, являющийся игрой в жанре "гон
 - 4 GB RAM
 - AMD Radeon HD 7850 | NVIDIA GeForce GTX 750
 
+Билд проекта находится в архиве `./BuildArchive/Project car.zip`
+
 ## Игровой процесс
 
 ![gameplay](./ForReadMe/Gifs/gameplay.gif)
