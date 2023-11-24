@@ -1,58 +1,64 @@
 # Project Car (PC)
 
-Poject car - проект, являющийся игрой в жанре "гонки". Игра имеет главное меню, внутриигровой магазин и 3 уровня. Интерфейс интуитивно понятен и не нуждается в особом рассмотрении.
+Project car is a project that is a game in the genre of "racing". The game has a main menu, an in-game store and 3 levels. The interface is intuitive and does not need special consideration.
 
-1. Обучающий уровень, рассказывающий об основных аспектах игры.
-2. Сложный уровень, включающий в себя: прыжки с трамплинов и огромную скорость. 
-3. Последний уровень, включающий в себя: закрученные элементы трассы и множественные препятствия.
+1. A training level that tells about the main aspects of the game.
+2. A difficult level, including: jumping from trampolines and tremendous speed.
+3. The last level, which includes: twisted elements of the track and multiple obstacles.
 
-Для комфортного игрового опыта(60 FPS) необходимо, как минимум:
+For an amateur gaming experience(60 frames per second), at least:
 - AMD Ryzen 5 3500U | Intel Core i5-8265U
-- 4 GB RAM
+- 4 GB of RAM
 - AMD Radeon HD 7850 | NVIDIA GeForce GTX 750
 
-Билд проекта находится в архиве `./BuildArchive/Project car.zip`   
-Версия Unity `2020.3.28f1`
+The build project is archived: `./BuildArchive/Project car.zip `  
+Unity version: `2020.3.28f1`
 
-## Игровой процесс
+## Gameplay
 
-![gameplay](./ForReadMe/Gifs/gameplay.gif)
+<p align="center">
+  <img src="./ForReadMe/Gifs/gameplay.gif" alt="animated" />
+</p>
 
-Геймплей игры строится вокруг многократного прохождения уровней, тем самым инкрементируя счетчик завершенных кругов. Падения с трассы инкрементируют счетчик падений.
+The gameplay of the game is built around multiple passing levels, thereby incrementing the completed lap counter. Falls from the track increment the drop counter.
 
-- За каждые 10 завершенных кругов игрок получает 10 коинов(внутриигровая валюта в виде корон) и сбрасывает оба счетчика.
-- За каждое падение игрок получает штраф в размере кол-ва падений в квадрате(штраф накладывается на внутриигровую валюту), 10 падений также сбрасывает оба счетчика.
-- На уровнях расположены различные объекты, которые способствуют/препятствуют прохождению уровня. 
+- For every 10 completed laps, the player receives 10 coins (in-game currency in the form of crowns) and resets both counters.
+- For each fall, the player receives a penalty in the amount of the number of drops in the square (the penalty is imposed on the in-game currency), 10 drops also resets both counters.
+- There are various objects on the levels that facilitate /hinder the passage of the level.
 
-Управление:
-- `W` `A` `S` `D` - управление движением автомобиля.
-- `SPACE` - ручной тормоз.
-- `ESC` - меню паузы.
+Controls:
+- `W`, `A`, `S`, `D` - vehicle movement control.
+- `SPACE` - handbrake.
+- `ESC` - pause time.
 
-## Магазин
+## Store
 
-![store](./ForReadMe/Gifs/store.gif)
+<p align="center">
+  <img src="./ForReadMe/Gifs/store.gif" alt="animated" />
+</p>
 
-На уровнях расположены коины.  
-Коины - внутриигровая валюта для покупки расцветок автомобиля. Каждый подобранный коин - это +1$.
+There are coins on the levels.
+Coins are an in-game currency for buying car colors. Each selected coin is +1$.
 
-- Любая расцветка стоит 35$.
-- Спойлер на автомобиль можно экипировать/снять бесплатно.
+- Any color costs $35.
+- The spoiler on the car can be equipped/removed for free.
 
-Из магазина можно попасть в меню и обратно на уровень, из которого был произведен вход в магазин.
+From the store, you can get to the menu and back to the level from which you entered the store.
 
-## Меню
+## Menu
 
-![menu](./ForReadMe/Gifs/menu.gif)
+<p align="center">
+  <img src="./ForReadMe/Gifs/menu.gif" alt="animated" />
+</p>
 
-В меню можно управлять автомобилем.
+You can control the car in the menu.
 
-- С помощью кнопки `PLAY`, можно попасть на экран выбора уровня.
-- Кнопка `STORE` открывает магазин.
-- `EXIT` - выход.
+- Using the `PLAY` button, you can select a level.
+- The `STORE` button opens the store.
+- `EXIT` - exit.
 
-## Ассеты
+## Assets
 
-- [Modular Lowpoly Track Roads FREE](https://assetstore.unity.com/packages/3d/environments/roadways/modular-lowpoly-track-roads-free-205188)
-- [ARCADE: FREE Racing Car](https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085)
-- [Simple Street Props](https://assetstore.unity.com/packages/3d/props/simple-street-props-194706)
+- [Low-gauge modular roads FREE](https://assetstore.unity.com/packages/3d/environments/roadways/modular-lowpoly-track-roads-free-205188)
+- [ARCADE: FREE racing car](https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085 )
+- [Simple Street props](https://assetstore.unity.com/packages/3d/props/simple-street-props-194706 )
