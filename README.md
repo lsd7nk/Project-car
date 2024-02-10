@@ -1,4 +1,4 @@
-# Project Car (PC)
+# Project сar (PC)
 
 Project car is a project that is a game in the genre of "racing". The game has a main menu, an in-game store and 3 levels. The interface is intuitive and does not need special consideration.
 
